@@ -1,0 +1,45 @@
+body{
+	padding: 10px;
+	position: relative;
+}
+.resp-body{
+	max-width: 980px;
+	margin: 0 auto;
+}
+.login-box{
+	padding: 10px;
+	background: #eee;
+}
+.login-head{
+	font-size: 1.8em;
+	text-align: center;
+	margin-bottom: 20px;
+}
+.login-form .row{
+	margin-bottom: 10px;
+}
+.login-form .row input{
+	width: 100%;
+	font-size: 1.4em;
+	padding: 5px;
+	height: auto;
+	line-height: 20px;
+}
+.btn-row{
+	padding-top: 10px;
+	text-align: center;
+}
+.btn-row .btn{
+	padding: 5px 15px;
+}
+.loading:after{
+	content: "";
+	display: block;
+	height: 100%;
+	width: 100%;
+	background: #000;
+	opacity: .3;
+	position: absolute;
+	top: 0;
+	left: 0;
+}

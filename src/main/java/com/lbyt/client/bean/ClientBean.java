@@ -2,44 +2,24 @@ package com.lbyt.client.bean;
 
 import java.util.Date;
 
-import org.codehaus.jackson.annotate.JsonProperty;
 
-public class ClientBean extends  JsonBean{
+public class ClientBean extends JsonBean {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 595470872980813098L;
-	
-	private Date modifyDate;
-	
-	private Date registerDate;
-	
+	private static final long serialVersionUID = -860283441337862926L;
+
 	private Integer id;
 	
-	private String cardNum;
+	private String registName;
 	
 	private String address;
 	
-	private String name;
+	private String phone;
 	
-	private String phoneNumber;
+	private String password;
 	
-	private String telNumber;
-	
-	private String postCode;
-	
-	private Date birthday;
-	
-	private String province;
-	
-	private String city;
-	
-	private String shopName;
+	private Date registDate;
 	
 	private String remark;
-	
-	private String shopState;
 
 	public Integer getId() {
 		return id;
@@ -47,6 +27,14 @@ public class ClientBean extends  JsonBean{
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getRegistName() {
+		return registName;
+	}
+
+	public void setRegistName(String registName) {
+		this.registName = registName;
 	}
 
 	public String getAddress() {
@@ -57,110 +45,35 @@ public class ClientBean extends  JsonBean{
 		this.address = address;
 	}
 
-	public String getName() {
-		return name;
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
-	public String getPhoneNumber() {
-		return phoneNumber;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public String getTelNumber() {
-		return telNumber;
+	public Date getRegistDate() {
+		return registDate;
 	}
 
-	public void setTelNumber(String telNumber) {
-		this.telNumber = telNumber;
-	}
-
-	public String getPostCode() {
-		return postCode;
-	}
-
-	public void setPostCode(String postCode) {
-		this.postCode = postCode;
-	}
-
-	public String getProvince() {
-		return province;
-	}
-
-	public void setProvince(String province) {
-		this.province = province;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getShopName() {
-		return shopName;
-	}
-
-	@JsonProperty("shopName")
-	public void setShopName(String shopName) {
-		this.shopName = shopName;
+	public void setRegistDate(Date registDate) {
+		this.registDate = registDate;
 	}
 
 	public String getRemark() {
 		return remark;
 	}
-	
-	@JsonProperty("remark")
+
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-
-	public Date getModifyDate() {
-		return modifyDate;
-	}
-
-	public void setModifyDate(Date modifyDate) {
-		this.modifyDate = modifyDate;
-	}
-
-	public Date getBirthday() {
-		return birthday;
-	}
-
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
-
-	public Date getRegisterDate() {
-		return registerDate;
-	}
-
-	public void setRegisterDate(Date registerDate) {
-		this.registerDate = registerDate;
-	}
-
-	public String getCardNum() {
-		return cardNum;
-	}
-
-	public void setCardNum(String cardNum) {
-		this.cardNum = cardNum;
-	}
-
-	public String getShopState() {
-		return shopState;
-	}
-
-	public void setShopState(String shopState) {
-		this.shopState = shopState;
-	}
-	
 }

@@ -1,44 +1,16 @@
 package com.lbyt.client.bean;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-public class ClientSearchBean extends BaseSearchBean {
-	
-	private static final long serialVersionUID = -115675320496802794L;
-	
-	private Date modifyDate;
-	
-	private Date registerDate;
-	
-	private Integer id;
-	
-	private String cardNum;
-	
-	private String address;
-	
-	private String name;
-	
-	private String phoneNumber;
-	
-	private String telNumber;
-	
-	private String postCode;
-	
-	private Date birthday;
-	
-	private String province;
-	
-	private String city;
-	
-	private String shopName;
-	
-	private String remark;
-	
-	private String shopState;
+public class ClientSearchBean extends BaseSearchBean{
+	private static final long serialVersionUID = 4420381041967770966L;
 	
 	private List<ClientBean> list = new ArrayList<ClientBean>();
+	
+	private String registName;
+	
+	private Integer id;
 
 	public List<ClientBean> getList() {
 		return list;
@@ -48,20 +20,12 @@ public class ClientSearchBean extends BaseSearchBean {
 		this.list = list;
 	}
 
-	public Date getModifyDate() {
-		return modifyDate;
+	public String getRegistName() {
+		return registName;
 	}
 
-	public void setModifyDate(Date modifyDate) {
-		this.modifyDate = modifyDate;
-	}
-
-	public Date getRegisterDate() {
-		return registerDate;
-	}
-
-	public void setRegisterDate(Date registerDate) {
-		this.registerDate = registerDate;
+	public void setRegistName(String registName) {
+		this.registName = registName;
 	}
 
 	public Integer getId() {
@@ -71,101 +35,7 @@ public class ClientSearchBean extends BaseSearchBean {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	public String getCardNum() {
-		return cardNum;
-	}
-
-	public void setCardNum(String cardNum) {
-		this.cardNum = cardNum;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	public String getTelNumber() {
-		return telNumber;
-	}
-
-	public void setTelNumber(String telNumber) {
-		this.telNumber = telNumber;
-	}
-
-	public String getPostCode() {
-		return postCode;
-	}
-
-	public void setPostCode(String postCode) {
-		this.postCode = postCode;
-	}
-
-	public Date getBirthday() {
-		return birthday;
-	}
-
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
-
-	public String getProvince() {
-		return province;
-	}
-
-	public void setProvince(String province) {
-		this.province = province;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getShopName() {
-		return shopName;
-	}
-
-	public void setShopName(String shopName) {
-		this.shopName = shopName;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
-
-	public String getShopState() {
-		return shopState;
-	}
-
-	public void setShopState(String shopState) {
-		this.shopState = shopState;
-	}
+	
+	
 	
 }

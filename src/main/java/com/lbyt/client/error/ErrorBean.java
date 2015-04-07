@@ -8,6 +8,13 @@ public class ErrorBean extends JsonBean{
 	private String message;
 	
 	private String errorCode;
+	
+	public ErrorBean(){}
+	
+	public ErrorBean(String message, String code){
+		this.message = message;
+		this.errorCode = code;
+	}
 
 	public String getErrorCode() {
 		return errorCode;

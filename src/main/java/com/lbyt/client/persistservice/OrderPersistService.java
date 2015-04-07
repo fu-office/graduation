@@ -14,37 +14,37 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.lbyt.client.dao.IClientDao;
-import com.lbyt.client.entity.ClientEntity;
+import com.lbyt.client.dao.IOrderDao;
+import com.lbyt.client.entity.OrderEntity;
 
 @Repository
-public class ClientPersistService {
+public class OrderPersistService {
 	@Autowired
-	private IClientDao clientDao;
+	private IOrderDao orderDao;
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
-	public void save(List<ClientEntity> list) {
-		for (ClientEntity entity : list) {
+	public void save(List<OrderEntity> list) {
+		for (OrderEntity entity : list) {
 			save(entity);
 		}
 	}
 	
 	@Transactional
-	public void save(ClientEntity entity) {
-		clientDao.save(entity);
+	public void save(OrderEntity entity) {
+		orderDao.save(entity);
 	}
 	
 	@Transactional(propagation = Propagation.SUPPORTS)
-	public List<ClientEntity> findAll() {
-		return clientDao.findAll();
+	public List<OrderEntity> findAll() {
+		return orderDao.findAll();
 	}
 	
 	@Transactional(propagation = Propagation.SUPPORTS)
-	public List<ClientEntity> findByProvAndCityAndShopState(final ClientEntity entity) {
-		return clientDao.findAll(new Specification<ClientEntity>(){
+	public List<OrderEntity> findByProvAndCityAndShopState(final OrderEntity entity) {
+		return orderDao.findAll(new Specification<OrderEntity>(){
 
 			@Override
-			public Predicate toPredicate(Root<ClientEntity> root,
+			public Predicate toPredicate(Root<OrderEntity> root,
 					CriteriaQuery<?> query, CriteriaBuilder cb) {
 				Path<String> prov = root.get("prov");
 				Path<String> city = root.get("city");
@@ -57,18 +57,23 @@ public class ClientPersistService {
 	}
 
 	@Transactional
-	public void deleteById(ClientEntity entity) {
-		clientDao.deleteById(entity.getId());
+	public void deleteById(OrderEntity entity) {
+		orderDao.deleteById(entity.getId());
 	}
 	
 	@Transactional(propagation = Propagation.SUPPORTS)
-	public ClientEntity findById(ClientEntity entity){
-		return clientDao.findById(entity.getId());
+	public OrderEntity findById(OrderEntity entity){
+		return orderDao.findById(entity.getId());
 	}
 	
 	@Transactional(propagation = Propagation.SUPPORTS)
-	public List<ClientEntity> findByRegistName(ClientEntity entity){
-		return clientDao.findByRegistName(entity.getRegistName());
+	public List<OrderEntity> findByClientId(OrderEntity entity){
+		return orderDao.findByClientId(entity.getClientId());
+	}
+	
+	@Transactional(propagation = Propagation.SUPPORTS)
+	public List<OrderEntity> findByClientName(OrderEntity entity){
+		return orderDao.findByName(entity.getName());
 	}
 	
 }

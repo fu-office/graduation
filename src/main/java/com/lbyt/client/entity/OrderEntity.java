@@ -11,31 +11,42 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "gifts")
-public class GiftEntity implements Serializable {
+@Table(name = "water_order")
+public class OrderEntity implements Serializable {
 	
 	private static final long serialVersionUID = 2751231434154186927L;
 
-	public static final String DATE = "date";
-
-	public static final String ID = "id";
-	
 	@Id
 	@Column(name="id")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	
-	@Column(name="c_id")
+	@Column(name="client_id")
 	private Integer clientId;
 	
 	@Column(name="phone")
 	private String phone;
 	
-	@Column(name="c_name")
+	@Column(name="client_name")
 	private String name;
 	
-	@Column(name="c_date")
+	@Column(name="create_date")
 	private Date date;
+	
+	@Column(name="order_status")
+	private String status;
+	
+	@Column(name="order_address")
+	private String address;
+	
+	@Column(name="delivery_time")
+	private Date deliveryTime;
+	
+	@Column(name="pay_status")
+	private String payStatus;
+	
+	@Column(name="pay_method")
+	private String payMethod;
 
 	public Integer getId() {
 		return id;
@@ -75,6 +86,46 @@ public class GiftEntity implements Serializable {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public Date getDeliveryTime() {
+		return deliveryTime;
+	}
+
+	public void setDeliveryTime(Date deliveryTime) {
+		this.deliveryTime = deliveryTime;
+	}
+
+	public String getPayStatus() {
+		return payStatus;
+	}
+
+	public void setPayStatus(String payStatus) {
+		this.payStatus = payStatus;
+	}
+
+	public String getPayMethod() {
+		return payMethod;
+	}
+
+	public void setPayMethod(String payMethod) {
+		this.payMethod = payMethod;
 	}
 	
 }
