@@ -77,4 +77,24 @@
 				opts.type = 'GET';
 			}
 	};
+	$.tipBox = function(opts){
+		opts = $.extend({
+			type : 'default',
+			message : '',
+			autoDel : true
+		}, opts);
+		var $div = $('<div>').addClass('slide-in-up tip-box-wrap ' + opts.type).appendTo(document.body);
+		$('<div>').addClass('tip-box-con').html(opts.message).appendTo($div);
+		if (opts.autoDel) {
+			setTimeout(function(){
+				$div.addClass('slide-out-up');
+				setTimeout(function(){
+					$div.remove();
+				}, 500);
+			}, 3000);
+		} else {
+			// add close btn
+			var $closeBtn = $('<a>').addClass('');
+		}
+	};
 }());

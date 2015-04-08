@@ -18,12 +18,22 @@ body{
 .login-form .row{
 	margin-bottom: 10px;
 }
-.login-form .row input{
+.login-form .row input,
+.login-form .row select,
+.login-form .row option{
 	width: 100%;
 	font-size: 1.4em;
 	padding: 5px;
 	height: auto;
 	line-height: 20px;
+}
+.login-form .row select{
+	margin-bottom: 10px;
+}
+.login-link{
+	line-height: 28px;
+	display: inline-block;
+	font-size: 1.4em;
 }
 .btn-row{
 	padding-top: 10px;
@@ -33,7 +43,7 @@ body{
 	padding: 5px 15px;
 }
 .loading:after{
-	content: "";
+	content: " ";
 	display: block;
 	height: 100%;
 	width: 100%;
@@ -42,4 +52,95 @@ body{
 	position: absolute;
 	top: 0;
 	left: 0;
+}
+.tip-box-wrap.default{
+	background: #eee;
+}
+.tip-box-wrap.error{
+	background: #f55;
+	color: #fff;
+	border-color: #f55;
+}
+.tip-box-wrap.success{
+	background: #5d8;
+	color: #fff;
+	border-color: #5d8;
+}
+.tip-box-wrap.warn{
+	background: #f0e49d;
+	color: #666;
+	border-color: #f0e49d;
+}
+.tip-box-wrap{
+	position: fixed;
+	width: 300px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	left: 50%;
+	top : 30px;
+	margin-left: -150px;
+	transform: translateY(-1000px);
+	
+}
+
+.tip-box-wrap a{
+	color: inherit;
+	text-decoration: inherit;	
+}
+
+.tip-box-wrap .tip-box-con{
+	color: inherit;
+	padding: 20px 10px;
+	text-align: center;
+	font-size: 1.4em;
+	line-height: 1.4em;
+}
+
+@keyframes slide-in-up{
+	from{
+		transform: translateY(-1000px);
+	}
+	to{
+		transform: translateY(0px);
+	}	
+}
+
+@-webkit-keyframes slide-in-up{
+	from{
+		transform: translateY(-1000px);
+		-webkit-transform: translateY(-1000px);
+	}
+	to{
+		transform: translateY(0px);
+		-webkit-transform: translateY(0px);
+	}	
+}
+
+.slide-in-up{
+			animation: slide-in-up 500ms 0s ease both;
+	-webkit-animation: slide-in-up 500ms 0s ease both;
+}
+
+@keyframes slide-out-up{
+	from{
+		transform: translateY(0px);
+	}
+	to{
+		transform: translateY(-1000px);
+	}	
+}
+
+@-webkit-keyframes slide-out-up{
+	from{
+		transform: translateY(0px);
+		-webkit-transform: translateY(0px);
+	}
+	to{
+		transform: translateY(-1000px);
+		-webkit-transform: translateY(-1000px);
+	}	
+}
+.slide-out-up{
+			animation: slide-out-up 500ms 0s ease-in both;
+	-webkit-animation: slide-out-up 500ms 0s ease-in both;
 }

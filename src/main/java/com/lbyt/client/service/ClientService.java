@@ -14,7 +14,6 @@ import com.lbyt.client.bean.SimpleBean;
 import com.lbyt.client.entity.ClientEntity;
 import com.lbyt.client.error.ErrorBean;
 import com.lbyt.client.persistservice.ClientPersistService;
-import com.lbyt.client.util.CommUtil;
 
 @Service
 public class ClientService {
@@ -32,24 +31,17 @@ public class ClientService {
 		return list;
 	}
 	
-	public ClientBean saveOrUpdate(ClientBean order) {
-		if (order.getId() == null) {
-			String address = order.getAddress();
-			if (CommUtil.isEmpty(address)) {
-				order.setSuccess(false);
-				ErrorBean e = ErrorBean.getInstance();
-				e.setMessage("配送地址不能为空");
-				order.getErrors().add(e);
-				return order;
-			}
-			order.setRegistDate(new Date());
-			return save(order);
+	public ClientBean saveOrUpdate(ClientBean client) {
+		if (client.getId() == null) {
+			client.setRegistDate(new Date());
+			return regist(client);
 		} else {
-			return update(order);
+			return update(client);
 		}
 	}
 
-	public ClientBean save(ClientBean client) {
+	public ClientBean regist(ClientBean client) {
+		client.setRegistDate(new Date());
 		ClientEntity entity = bulidEntity(client);
 		if (this.isRegisted(client.getRegistName())) {
 			client.setSuccess(false);
@@ -65,28 +57,28 @@ public class ClientService {
 	public JsonBean save(List<ClientBean> list) {
 		JsonBean json = new JsonBean();
 		for (ClientBean order : list) {
-			save(order);
+			saveOrUpdate(order);
 		}
 		json.setSuccess(true);
 		return json;
 	}
 	
-	public ClientBean update(ClientBean order) {
-		ClientBean storeBean = findById(order);
+	public ClientBean update(ClientBean client) {
+		ClientBean storeBean = findById(client);
 		if (storeBean != null) {
-			save(storeBean);
+			saveOrUpdate(storeBean);
 			storeBean.setSuccess(true);
 			return storeBean;
 		} else {
-			order.setSuccess(false);
+			client.setSuccess(false);
 			ErrorBean error = new ErrorBean();
 			error.setMessage("该订单不存在，或已删除");
-			order.getErrors().add(error);
+			client.getErrors().add(error);
 		}
-		return order;
+		return client;
 	}
 	
-	public ClientSearchBean search(ClientSearchBean order) {
+	public ClientSearchBean search(ClientSearchBean client) {
 		ClientSearchBean json = new ClientSearchBean();
 		ClientEntity entity = new ClientEntity();
 		List<ClientEntity> list =  clientPersist.findByProvAndCityAndShopState(entity);
@@ -97,14 +89,14 @@ public class ClientService {
 		return json;
 	}
 	
-	public ClientBean delete(ClientBean order) {
-		clientPersist.deleteById(bulidEntity(order));
-		order.setSuccess(true);
-		return order;
+	public ClientBean delete(ClientBean client) {
+		clientPersist.deleteById(bulidEntity(client));
+		client.setSuccess(true);
+		return client;
 	}
 	
-	public ClientBean findById(ClientBean order) {
-		ClientEntity entity = clientPersist.findById(bulidEntity(order));
+	public ClientBean findById(ClientBean client) {
+		ClientEntity entity = clientPersist.findById(bulidEntity(client));
 		return bulidBean(entity);
 	}
 	
@@ -112,7 +104,7 @@ public class ClientService {
 		ClientEntity entity = new ClientEntity();
 		entity.setRegistName(registName);
 		List<ClientEntity> list = clientPersist.findByRegistName(entity);
-		return 0 == list.size();
+		return 0 != list.size();
 	}
 	
 	public SimpleBean isRegisted(ClientBean bean){

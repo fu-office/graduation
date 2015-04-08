@@ -43,7 +43,7 @@ public class JsonBean implements Serializable {
 		this.success = success;
 	}
 
-	@JsonIgnore
+	@JsonProperty("token")
 	public String getToken() {
 		return token;
 	}

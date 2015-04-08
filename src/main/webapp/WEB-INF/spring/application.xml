@@ -12,7 +12,7 @@
     <bean id="domainFilter" class="com.lbyt.client.filters.CharsetFilter"/>
     <!-- tansaction --> 
 	<tx:annotation-driven transaction-manager="transactionManager" />
-
+	
 	<bean id="entityManagerFactory"
 	class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 	<property name="dataSource" ref="dataSource" />
