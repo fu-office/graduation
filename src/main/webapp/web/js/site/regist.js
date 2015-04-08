@@ -30,13 +30,4 @@
 			});
 		}
 	});
-	// mark error
-	$('input').on('blur', function(){
-		var $ipt = $(this); 
-		if ($ipt.hasClass('required') && !$ipt.val()) {
-			$ipt.addClass('error');
-		} else {
-			$ipt.removeClass('error');
-		}
-	});
 }());

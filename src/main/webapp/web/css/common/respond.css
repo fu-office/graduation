@@ -3,7 +3,7 @@ body{
 	position: relative;
 }
 .resp-body{
-	max-width: 980px;
+	max-width: 640px;
 	margin: 0 auto;
 }
 .login-box{

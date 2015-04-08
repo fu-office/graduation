@@ -67,7 +67,7 @@
 				});
 				ajaxOpts.success = Ajax.successHandler(opts.success, opts.fail);
 				ajaxOpts.error = Ajax.errorHandler(opts.error);
-				Ajax.addMask();
+//				Ajax.addMask();
 				$.ajax(ajaxOpts);
 			},
 			postJSON : function(opts){
@@ -81,7 +81,8 @@
 		opts = $.extend({
 			type : 'default',
 			message : '',
-			autoDel : true
+			autoDel : true,
+			time: 1500
 		}, opts);
 		var $div = $('<div>').addClass('slide-in-up tip-box-wrap ' + opts.type).appendTo(document.body);
 		$('<div>').addClass('tip-box-con').html(opts.message).appendTo($div);
@@ -91,10 +92,19 @@
 				setTimeout(function(){
 					$div.remove();
 				}, 500);
-			}, 3000);
+			}, opts.time);
 		} else {
 			// add close btn
 			var $closeBtn = $('<a>').addClass('');
 		}
 	};
+	// mark error
+	$('input, select').on('blur', function(){
+		var $ipt = $(this); 
+		if ($ipt.hasClass('required') && !$ipt.val()) {
+			$ipt.addClass('error');
+		} else {
+			$ipt.removeClass('error');
+		}
+	});
 }());

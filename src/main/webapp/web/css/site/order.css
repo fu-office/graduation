@@ -1,0 +1,46 @@
+.order-box{
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	padding: 10px;
+}
+.order-box .title{
+	margin-bottom: 15px;
+	font-size: 1.6em;
+	font-weight: 800;
+	padding: 0 10px;
+}
+.order-box .new-addr{
+	padding: 10px;
+}
+.order-box .last-addr{
+	margin-bottom: 10px;
+}
+.order-box .last-addr-con{
+	line-height: 24px;
+	padding: 0 10px;
+	display: inline-block;
+}
+.last-addr-con span{
+	background: #f5f5f5;
+	display: inline-block;
+	border: 1px solid #ddd;
+	min-width: 3em;
+	text-align: center;
+	padding: 0 5px;
+	height: 24px;
+	float: left;
+	margin-right: 2px;
+}
+.new-addr .row{
+	margin-bottom: 10px;
+}
+.addr-btn-row, .submit-row{
+	text-align: center;
+}
+.flex-select-div{
+	box-sizing: border-box;
+	padding: 0 0 0 120px
+}
+.flex-select-div select{
+	width: 100%;
+}

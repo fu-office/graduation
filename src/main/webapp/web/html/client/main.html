@@ -1,5 +1,76 @@
-<!DOCTYPE html>
+<!DOCTYPE>
 <html>
-  <head></head>
-  <body></body>
+  <head>
+    <meta charset="utf-8">
+    <title>菜园订水-订水</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="../../css/common/common.css">
+    <link type="text/css" rel="stylesheet" href="../../css/common/respond.css">
+    <link type="text/css" rel="stylesheet" href="../../css/site/order.css">
+  </head>
+  <body class="">
+    <div class="resp-body">
+      <header></header>
+      <article>
+        <div class="order-box">
+        	<div class="title">
+        		配送地址
+        	</div>
+        	<div class="last-addr">
+        		<div class="last-addr-con">
+        			<span class="area"></span>
+        			<span class="department"></span>
+        			<span class="floor"></span>
+        			<span class="room"></span> 
+        		</div>
+        		<input type="hidden" name="area">
+        		<input type="hidden" name="department">
+        		<input type="hidden" name="floor">
+        		<input type="hidden" name="room">
+        		<button class="btn" id="new-addr-btn">使用新地址</button>
+        	</div>
+        	<div class="new-addr hide">
+        		<div class="row">
+        			<label class="fm-lb">生活区</label>
+        			<div class="flex-select-div">
+        				<select class="required" name="area"></select>
+        			</div>
+        		</div>
+        		<div class="row">
+        			<label class="fm-lb">楼号</label>
+        			<div class="flex-select-div">
+        				<select class="required" name="department"></select>
+        			</div> 
+        		</div>
+        		<div class="row">
+        			<label class="fm-lb">楼层</label>
+        			<div class="flex-select-div">
+        				<select class="required" name="floor"></select>
+        			</div>
+        		</div>
+        		<div class="row">
+        			<label class="fm-lb">房间号</label>
+        			<div class="flex-select-div">
+        				<select class="required" name="room"></select>
+        			</div>
+        		</div>
+        		<div class="row addr-btn-row">
+        			<button class="btn btn-primary">确定</button>
+        		</div>
+        	</div>
+        	<div class="title">
+        		配送时间
+        	</div>
+        	<div></div>
+        	<div class="row submit-row">
+        		<button class="btn btn-primary">提交订单</button>
+        	</div>
+        </div>
+      </article>
+      <footer></footer>
+    </div>
+    <script type="text/javascript" src="../../js/lib/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/site/common.js"></script>
+    <script type="text/javascript" src="../../js/site/order.js"></script>
+  </body>
 </html>

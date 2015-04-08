@@ -1,4 +1,4 @@
--- client database
+﻿-- client database
 CREATE DATABASE if not exists `water` DEFAULT CHARACTER SET utf8;
 use water;
 drop table if exists water_client;
@@ -47,6 +47,19 @@ CREATE TABLE `delivery_set` (
   `s_time` char(5) NOT NULL,
   `e_time` char(5) NOT NULL,
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- wx_client table 
+drop table if exists client_addr;
+CREATE TABLE `client_addr` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `client_id` int(10) unsigned NOT NULL,
+  `area` varchar(64) NOT NULL,
+  `department` char(5) NOT NULL,
+  `floor` varchar(12) NOT NULL,
+  `room` varchar(12) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `client_id` (`client_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- wx_client table 

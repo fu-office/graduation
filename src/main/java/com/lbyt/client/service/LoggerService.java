@@ -1,4 +1,4 @@
-package com.lbyt.client.services;
+package com.lbyt.client.service;
 
 import java.util.HashMap;
 import java.util.Map;

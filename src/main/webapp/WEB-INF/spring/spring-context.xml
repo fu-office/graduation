@@ -10,9 +10,6 @@
      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
      http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
      
-     <!-- spring mvc  annotation -->
-    <mvc:annotation-driven />
-     
 	<!-- File upload -->
 	<beans:bean id="multipartResolver" class="com.lbyt.client.FileUploadReslover">
 		<beans:property name="maxInMemorySize">
@@ -25,7 +22,4 @@
 	<!-- exception handler -->
 	<beans:bean id="exceptionResolver" class="com.lbyt.client.ExceptionResolver">
 	</beans:bean>
-	<!-- aop -->
-	<context:component-scan base-package="com.lbyt.client" />
-	<aop:aspectj-autoproxy />
 </beans:beans>

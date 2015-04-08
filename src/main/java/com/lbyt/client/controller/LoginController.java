@@ -23,7 +23,7 @@ public class LoginController {
 	public JsonBean signUp(@RequestBody ClientBean client){
 		JsonBean bean = clientservice.regist(client);
 		if (bean.isSuccess()) {
-			bean.setToken(TokenGenerator.generate());
+			bean.setToken(TokenGenerator.generate(client));
 		}
 		return bean;
 	}
@@ -32,7 +32,14 @@ public class LoginController {
 	@RequestMapping(value="/sign_in.json")
 	@ResponseBody
 	public JsonBean signIn(@RequestBody ClientBean client){
-		return new JsonBean();
+		ClientBean stroeBean = clientservice.findByRegistName(client);
+		if (null != stroeBean && stroeBean.getPassword().equals(client.getPassword())) {
+			client.setSuccess(true);
+			client.setToken(TokenGenerator.generate(client));
+		} else {
+			client.setSuccess(false);
+		}
+		return client;
 	}
 	
 	// 退出

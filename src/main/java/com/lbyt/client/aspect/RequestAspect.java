@@ -1,6 +1,5 @@
 package com.lbyt.client.aspect;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -11,10 +10,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.lbyt.client.HttpContextHolder;
-import com.lbyt.client.bean.ExcelOutputJsonBean;
-import com.lbyt.client.services.LoggerService;
-import com.lbyt.client.util.ExcelUtil;
+import com.lbyt.client.service.LoggerService;
 
 @Aspect
 @Component
@@ -30,25 +26,8 @@ public class RequestAspect {
 		if (logger.isDebugEnabled()) {
 			logger.debug("invoke: " + method.getName());
 		}
-		try {
-			return processOutputs(joinPoint.proceed());
-		} catch (IOException e) {
-			return joinPoint;
-		} catch (Throwable e) {
-			return joinPoint;
-		}
+		// 验证 token
+		return joinPoint;
 	}
 	
-	 private Object processOutputs(final Object output) throws IOException {
-	        if (null != output) {
-	            if (output instanceof ExcelOutputJsonBean) {
-	                //对于Excel格式的输出,根据bean中的内容创建Excel文件并写入输出流
-	                ExcelOutputJsonBean bean = (ExcelOutputJsonBean) output;
-	                HttpContextHolder.getResponse().setContentType("application/msexcel");
-	                ExcelUtil.buildExcelFile(bean.getBean(), bean.getErrors(), HttpContextHolder.getResponse().getOutputStream());
-	                return null;
-	            }
-	       }
-	       return output;
-	 }
 }

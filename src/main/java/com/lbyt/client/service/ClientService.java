@@ -100,6 +100,14 @@ public class ClientService {
 		return bulidBean(entity);
 	}
 	
+	public ClientBean findByRegistName(ClientBean client){
+		List<ClientEntity> list = clientPersist.findByRegistName(bulidEntity(client));
+		if (0 == list.size()) {
+			return null;
+		}
+		return bulidBean(list.get(0));
+	}
+	
 	private boolean isRegisted(String registName){
 		ClientEntity entity = new ClientEntity();
 		entity.setRegistName(registName);
