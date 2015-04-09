@@ -19,6 +19,8 @@ public class JsonBean implements Serializable {
 
 	private List<ErrorBean> errors = new ArrayList<ErrorBean>();
 	
+	private List<JsonBean> datas = new ArrayList<JsonBean>();
+	
 	private boolean success;
 	
 	private String token;
@@ -51,6 +53,16 @@ public class JsonBean implements Serializable {
 	@JsonProperty("token")
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	@JsonProperty("datas")
+	public List<JsonBean> getDatas() {
+		return datas;
+	}
+
+	@JsonProperty("datas")
+	public void setDatas(List<JsonBean> list) {
+		this.datas = list;
 	}
 
 }

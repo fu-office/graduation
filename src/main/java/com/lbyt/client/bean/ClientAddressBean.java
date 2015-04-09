@@ -1,8 +1,10 @@
 package com.lbyt.client.bean;
 
-public class AddressBean extends JsonBean {
+public class ClientAddressBean extends JsonBean {
 
 	private static final long serialVersionUID = 3286060552538543743L;
+	
+	private Integer id;
 	
 	private String area;
 	
@@ -11,6 +13,8 @@ public class AddressBean extends JsonBean {
 	private String floor;
 	
 	private String room;
+	
+	private ClientBean client = new ClientBean();
 
 	public String getArea() {
 		return area;
@@ -42,6 +46,22 @@ public class AddressBean extends JsonBean {
 
 	public void setRoom(String room) {
 		this.room = room;
+	}
+
+	public ClientBean getClient() {
+		return client;
+	}
+
+	public void setClient(ClientBean client) {
+		this.client = client;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
 } 
