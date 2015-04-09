@@ -35,6 +35,7 @@ public class LoginController {
 		ClientBean stroeBean = clientservice.findByRegistName(client);
 		if (null != stroeBean && stroeBean.getPassword().equals(client.getPassword())) {
 			client.setSuccess(true);
+			client.setId(stroeBean.getId());
 			client.setToken(TokenGenerator.generate(client));
 		} else {
 			client.setSuccess(false);

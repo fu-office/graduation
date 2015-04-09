@@ -64,8 +64,8 @@ public class ClientAddressPersistService {
 	}
 	
 	@Transactional(propagation = Propagation.SUPPORTS)
-	public ClientAddrEntity findByClient(ClientEntity client){
-		return clientAddressDao.findByClient(client);
+	public List<ClientAddrEntity> findByClient(ClientAddrEntity client){
+		return clientAddressDao.findByClientId(client.getClientId());
 	}
 	
 }

@@ -8,13 +8,26 @@
 		
 	function updateAddr(data){
 		return Ajax.json({
-			url: 'clientAddr/save',
+			url: 'address/save.json',
 			data: data,
 			success: function(data){
 				$.tipBox({
 					message: '更新成功',
 					type: 'tip'
 				});
+			}
+		});
+	}
+	function getClientAddress(){
+		Ajax.json({
+			url : 'address/client.json',
+			success : function(data){
+				if (data.id){
+					
+				} else {
+					// need add new address
+					toggleNewAddrSection(true);
+				}
 			}
 		});
 	}
@@ -33,4 +46,18 @@
 			updateAddr(data);
 		}
 	});
+	// init
+	getClientAddress();
+	(function(){
+		var html = '';
+		for (var i = 1; i <= 54; i++) {
+			html += '<option value="' + i + '">' + i + '</option>';
+		}
+		$('#department_list').html(html);
+		html = '';
+		for (i = 1; i < 10; i++) {
+			html += '<option value="' + i + '">' + i + '</option>';
+		}
+		$('#floor_list').html(html);
+	}());
 }());

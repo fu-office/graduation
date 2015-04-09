@@ -36,25 +36,30 @@
         		<div class="row">
         			<label class="fm-lb">生活区</label>
         			<div class="flex-select-div">
-        				<select class="required" name="area"></select>
+        				<select class="required" name="area">
+                          <option value="桃李">桃李区</option>
+                          <option value="成蹊">成蹊区</option>
+                        </select>
         			</div>
         		</div>
         		<div class="row">
         			<label class="fm-lb">楼号</label>
         			<div class="flex-select-div">
-        				<select class="required" name="department"></select>
+        				<select class="required" name="department" id="department_list">
+                            <option value=""></option>
+                        </select>
         			</div> 
         		</div>
         		<div class="row">
         			<label class="fm-lb">楼层</label>
         			<div class="flex-select-div">
-        				<select class="required" name="floor"></select>
+        				<select class="required" name="floor" id="floor_list"></select>
         			</div>
         		</div>
         		<div class="row">
         			<label class="fm-lb">房间号</label>
         			<div class="flex-select-div">
-        				<select class="required" name="room"></select>
+        				<input class="required" name="room" />
         			</div>
         		</div>
         		<div class="row addr-btn-row">
@@ -64,7 +69,11 @@
         	<div class="title">
         		配送时间
         	</div>
-        	<div></div>
+            <div class="deliver-box">
+              <div class="row">
+                <select name="deliveryTime" id="time_list"></select>
+              </div>
+            </div>
         	<div class="row submit-row">
         		<button class="btn btn-primary">提交订单</button>
         	</div>

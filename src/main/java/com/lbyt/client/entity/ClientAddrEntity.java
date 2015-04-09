@@ -2,14 +2,11 @@ package com.lbyt.client.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -35,10 +32,9 @@ public class ClientAddrEntity implements Serializable {
 	@Column(name="room")
 	private String room;
 	
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="clinet_id")
-	private ClientEntity client;
-
+	@Column(name="client_id")
+	private Integer clientId;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -79,12 +75,12 @@ public class ClientAddrEntity implements Serializable {
 		this.room = room;
 	}
 
-	public ClientEntity getClient() {
-		return client;
+	public Integer getClientId() {
+		return clientId;
 	}
 
-	public void setClient(ClientEntity client) {
-		this.client = client;
+	public void setClientId(Integer clientId) {
+		this.clientId = clientId;
 	}
 	
 }

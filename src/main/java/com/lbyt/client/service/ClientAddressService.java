@@ -7,10 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lbyt.client.bean.ClientAddressBean;
-import com.lbyt.client.bean.ClientBean;
 import com.lbyt.client.bean.JsonBean;
 import com.lbyt.client.entity.ClientAddrEntity;
-import com.lbyt.client.entity.ClientEntity;
 import com.lbyt.client.error.ErrorBean;
 import com.lbyt.client.persistservice.ClientAddressPersistService;
 
@@ -71,32 +69,34 @@ public class ClientAddressService {
 		return bulidBean(entity);
 	}
 	
+	public ClientAddressBean findByClient(ClientAddressBean client){
+		List<ClientAddrEntity> list = clientAddressPersist.findByClient(bulidEntity(client));
+		if (list.size() > 0) {
+			client = bulidBean(list.get(0));
+		}
+		client.setSuccess(true);
+		return client;
+	}
+	
 	private ClientAddrEntity bulidEntity (ClientAddressBean client) {
 		ClientAddrEntity entity = new ClientAddrEntity();
 		entity.setId(client.getId());
+		entity.setClientId(client.getClientId());
 		entity.setArea(client.getArea());
 		entity.setDepartment(client.getDepartment());
 		entity.setFloor(client.getFloor());
 		entity.setRoom(client.getRoom());
-		ClientEntity clientEntity = new ClientEntity();
-		clientEntity.setId(client.getClient().getId());
-		entity.setClient(clientEntity);
 		return entity;
 	}
 	
 	public ClientAddressBean bulidBean(ClientAddrEntity entity) {
 		ClientAddressBean bean = new ClientAddressBean();
 		bean.setId(entity.getId());
+		bean.setClientId(entity.getClientId());
 		bean.setArea(entity.getArea());
 		bean.setDepartment(entity.getDepartment());
 		bean.setFloor(entity.getFloor());
 		bean.setRoom(entity.getRoom());
-		ClientBean clientBean = new ClientBean();
-		ClientEntity clientEntity = entity.getClient();
-		if (null != clientEntity) {
-			clientBean.setId(entity.getClient().getId());
-		}
-		bean.setClient(clientBean);
 		return bean;
 	}
 	

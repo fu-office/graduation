@@ -14,8 +14,8 @@ public class ClientAddressBean extends JsonBean {
 	
 	private String room;
 	
-	private ClientBean client = new ClientBean();
-
+	private Integer clientId;
+	
 	public String getArea() {
 		return area;
 	}
@@ -48,20 +48,20 @@ public class ClientAddressBean extends JsonBean {
 		this.room = room;
 	}
 
-	public ClientBean getClient() {
-		return client;
-	}
-
-	public void setClient(ClientBean client) {
-		this.client = client;
-	}
-
 	public Integer getId() {
 		return id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Integer getClientId() {
+		return clientId;
+	}
+
+	public void setClientId(Integer clientId) {
+		this.clientId = clientId;
 	}
 	
 } 

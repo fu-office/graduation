@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lbyt.client.entity.ClientAddrEntity;
-import com.lbyt.client.entity.ClientEntity;
 
 public interface IClientAddressDao extends Repository<ClientAddrEntity, Integer>{
 	
@@ -29,5 +28,7 @@ public interface IClientAddressDao extends Repository<ClientAddrEntity, Integer>
 	@Query("select a from ClientAddrEntity a where a.id = ?1")
 	ClientAddrEntity findById(Integer id);
 	
-	ClientAddrEntity findByClient(ClientEntity client);
+	@Transactional(propagation = Propagation.SUPPORTS)
+	@Query("select a from ClientAddrEntity a where a.clientId = ?1")
+	List<ClientAddrEntity> findByClientId(Integer clientId);
 }

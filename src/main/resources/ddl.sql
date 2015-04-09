@@ -49,6 +49,16 @@ CREATE TABLE `delivery_set` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- delivery set table 
+drop table if exists delivery_range;
+CREATE TABLE `delivery_range` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` char(5) NOT NULL,
+  `parent` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 -- wx_client table 
 drop table if exists client_addr;
 CREATE TABLE `client_addr` (
@@ -71,4 +81,6 @@ CREATE TABLE `wx_client` (
   `regist_name` varchar(12) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 
