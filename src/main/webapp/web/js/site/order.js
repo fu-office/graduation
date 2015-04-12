@@ -15,6 +15,14 @@
 					message: '更新成功',
 					type: 'tip'
 				});
+				toggleNewAddrSection(false);
+				$('#new_addr_id').val(data.id);
+			},
+			fail: function(data){
+				$.tipBox({
+					message: data.errors[0].message,
+					type: 'error'
+				});
 			}
 		});
 	}
@@ -23,7 +31,14 @@
 			url : 'address/client.json',
 			success : function(data){
 				if (data.id){
-					
+					$('input, select').each(function(){
+						if (this.name) {
+							$(this).val(data[this.name]);
+						}
+					});
+					$('.last-addr-con span').each(function(){
+						$(this).text(data[this.className]);
+					});
 				} else {
 					// need add new address
 					toggleNewAddrSection(true);
@@ -37,14 +52,17 @@
 	});
 	$('#addr_submit').bind('click', function(){
 		var $div = $('.new-addr');
-		$div.find('select').blur();
+		$div.find('select, input').blur();
 		if (0 == $div.find('.error').length) {
 			var data = {};
-			$div.find('select').each(function(){
+			$div.find('select, input').each(function(){
 				data[this.name] = this.value;
 			});
 			updateAddr(data);
 		}
+	});
+	$('#cancel_submit').bind('click', function(){
+		toggleNewAddrSection(false);
 	});
 	// init
 	getClientAddress();

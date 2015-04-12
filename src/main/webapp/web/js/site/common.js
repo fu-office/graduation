@@ -1,5 +1,5 @@
 (function(){
-	var Root = 'http://localhost:8080/client/',
+	var Root = location.protocol + '//' + location.host + '/client/',
 	App = {
 			gotoLogin : function(){
 				location.href = Root + 'web/html/login.html';

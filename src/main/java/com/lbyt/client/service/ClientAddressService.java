@@ -31,7 +31,9 @@ public class ClientAddressService {
 	public ClientAddressBean saveOrUpdate(ClientAddressBean client) {
 		ClientAddrEntity entity = bulidEntity(client);
 		clientAddressPersist.save(entity);
-		return bulidBean(entity);
+		client = bulidBean(entity);
+		client.setSuccess(true);
+		return client;
 	}
 
 	public JsonBean save(List<ClientAddressBean> list) {

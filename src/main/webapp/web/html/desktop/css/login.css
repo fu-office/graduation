@@ -1,0 +1,30 @@
+.login-box{
+	width: 300px;
+	margin: 0 auto;
+	padding: 20px 10px;
+	margin-top: 160px;
+	position: relative;
+	background: rgba(0,0,0,.7);
+}
+.login-box .row{
+	padding: 10px;
+}
+.login-box .row input{
+	width: 260px;
+	padding: 8px 10px;
+	background: #fff;
+	color: #333;
+}
+.login-box .btn{
+	font-size: 1.4em;
+	font-weight: 800;
+	color: #fff;
+	width: 100%;
+	background: #49f;
+	border: 0 none;
+	padding: 8px 10px;
+	cursor: pointer;
+}
+.login-box .btn[disabled]{
+	background: #bbb;
+}

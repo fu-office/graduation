@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.lbyt.client.bean.ClientAddressBean;
 import com.lbyt.client.bean.ClientBean;
 import com.lbyt.client.bean.JsonBean;
+import com.lbyt.client.error.ErrorBean;
 import com.lbyt.client.service.ClientAddressService;
 import com.lbyt.client.service.ClientService;
 import com.lbyt.client.util.TokenGenerator;
@@ -26,6 +27,14 @@ public class AddressController {
 	@RequestMapping(value="/save.json")
 	@ResponseBody
 	public JsonBean save(@RequestBody ClientAddressBean client){
+		ClientBean clientBean = TokenGenerator.getClientByToken(client.getToken());
+		if (null != clientBean) {
+			client.setClientId(clientBean.getId());
+		} else {
+			client.setSuccess(false);
+			client.getErrors().add(new ErrorBean("当前未登录", null));
+			return client;
+		}
 		return addressService.saveOrUpdate(client);
 	}
 	
