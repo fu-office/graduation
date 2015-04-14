@@ -107,7 +107,8 @@
 			type : 'default',
 			message : '',
 			autoDel : true,
-			time: 1500
+			time: 1500,
+			close: foo
 		}, opts);
 		var $div = $('<div>').addClass('slide-in-up tip-box-wrap ' + opts.type).appendTo(document.body);
 		$('<div>').addClass('tip-box-con').html(opts.message).appendTo($div);
@@ -116,6 +117,7 @@
 				$div.addClass('slide-out-up');
 				setTimeout(function(){
 					$div.remove();
+					opts.close();
 				}, 500);
 			}, opts.time);
 		} else {
@@ -132,6 +134,36 @@
 			$ipt.removeClass('error');
 		}
 	});
+	$.fn.f2j = function(){
+		var data = {};
+		$(this).find('input, select').each(function(){
+			if (this.name) {
+				data[this.name] = $(this).val();
+			}
+		});
+		return data;
+	};
+	$.fn.j2f = function(data){
+		$(this).find('input, select').each(function(){
+			if (this.name) {
+				$(this).val(data[this.name]);
+			}
+		});
+	};
+	Date.format = function(date, pattern){
+		pattern = pattern || 'yyyy-MM-dd';
+		if (typeof date == 'number') {
+			date = new Date(date);
+		} else if (typeof date == 'string') {
+			date = new Date(Date.parse(date));
+		}
+		pattern = pattern.replace('yyyy', date.getFullYear());
+		pattern = pattern.replace('MM', date.getMonth() + 1);
+		pattern = pattern.replace('dd', date.getDate());
+		pattern = pattern.replace('hh', date.getHours());
+		pattern = pattern.replace('mm', date.getMinutes());
+		return pattern;
+	};
 	// common methods
 	window.app = {
 		getURLParams : getURLParams,

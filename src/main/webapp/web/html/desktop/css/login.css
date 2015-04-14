@@ -28,3 +28,7 @@
 .login-box .btn[disabled]{
 	background: #bbb;
 }
+#errMsg{
+	color: #f22;
+	text-align: center;
+}

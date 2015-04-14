@@ -7,10 +7,10 @@
 		$('.login-box').find('input').each(function(){
 			data[this.name] = $.trim(this.value);
 		});
-		if (data.name && data.password) {
-			Ajax.json({
-				
-			});
+		if (data.name == 'admin' && data.password == '123456') {
+			location.href = './desktop.html';
+		} else {
+			$('#errMsg').show();
 		}
 	});
 }());

@@ -74,16 +74,15 @@
         	</div>
             <div class="deliver-box">
               <div class="row">
-                <select name="deliveryDay" id="day_list">
-                  <option value="">今日</option>
+                <select name="deliveryDay" id="day_list" class="required">
                 </select>
               </div>
               <div class="row">
-                <select name="deliveryTime" id="time_list"></select>
+                <select name="deliveryTime" id="time_list" class="required"></select>
               </div>
             </div>
         	<div class="row submit-row">
-        		<button class="btn btn-primary">提交订单</button>
+        		<button class="btn btn-primary" id="order_submit">提交订单</button>
         	</div>
         </div>
       </article>

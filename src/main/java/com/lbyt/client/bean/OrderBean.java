@@ -22,7 +22,9 @@ public class OrderBean extends  JsonBean  {
 	
 	private String address;
 	
-	private Date deliveryTime;
+	private String deliveryTime;
+	
+	private String deliveryDate;
 	
 	private String payStatus;
 	
@@ -91,12 +93,12 @@ public class OrderBean extends  JsonBean  {
 		this.address = address;
 	}
 
-	public Date getDeliveryTime() {
+	public String getDeliveryTime() {
 		return deliveryTime;
 	}
 
 	@JsonProperty("deliveryTime")
-	public void setDeliveryTime(Date deliveryTime) {
+	public void setDeliveryTime(String deliveryTime) {
 		this.deliveryTime = deliveryTime;
 	}
 
@@ -116,6 +118,14 @@ public class OrderBean extends  JsonBean  {
 	@JsonProperty("payMethod")
 	public void setPayMethod(String payMethod) {
 		this.payMethod = payMethod;
+	}
+
+	public String getDeliveryDate() {
+		return deliveryDate;
+	}
+
+	public void setDeliveryDate(String deliveryDate) {
+		this.deliveryDate = deliveryDate;
 	}
 
 }

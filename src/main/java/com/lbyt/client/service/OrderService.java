@@ -108,6 +108,7 @@ public class OrderService {
 		entity.setId(order.getId());
 		entity.setAddress(order.getAddress());
 		entity.setDeliveryTime(order.getDeliveryTime());
+		entity.setDeliveryDate(order.getDeliveryDate());
 		entity.setClientId(order.getClientId());
 		entity.setStatus(order.getStatus());
 		entity.setPhone(order.getPhone());
