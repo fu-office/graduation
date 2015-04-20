@@ -29,6 +29,8 @@ public class OrderBean extends  JsonBean  {
 	private String payStatus;
 	
 	private String payMethod;
+	
+	private String area;
 
 	public Integer getId() {
 		return id;
@@ -126,6 +128,14 @@ public class OrderBean extends  JsonBean  {
 
 	public void setDeliveryDate(String deliveryDate) {
 		this.deliveryDate = deliveryDate;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
 	}
 
 }

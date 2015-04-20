@@ -50,6 +50,20 @@ public class OrderEntity implements Serializable {
 	
 	@Column(name="pay_method")
 	private String payMethod;
+	
+	@Column(name="department")
+	private String department;
+	
+	@Column(name="area")
+	private String area;
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
 
 	public Integer getId() {
 		return id;
@@ -137,6 +151,14 @@ public class OrderEntity implements Serializable {
 
 	public void setPayMethod(String payMethod) {
 		this.payMethod = payMethod;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
 	}
 	
 }

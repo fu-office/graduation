@@ -5,11 +5,13 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.lbyt.client.bean.JsonBean;
 import com.lbyt.client.bean.OrderBean;
 import com.lbyt.client.bean.OrderSearchBean;
+import com.lbyt.client.bean.PageBean;
 import com.lbyt.client.entity.OrderEntity;
 import com.lbyt.client.error.ErrorBean;
 import com.lbyt.client.persistservice.OrderPersistService;
@@ -20,7 +22,6 @@ public class OrderService {
 	
 	@Autowired
 	private OrderPersistService orderPersist;
-	
 	
 	public List<OrderBean> findAll() {
 		List<OrderEntity> entities = orderPersist.findAll();
@@ -82,9 +83,11 @@ public class OrderService {
 	
 	public OrderSearchBean search(OrderSearchBean order) {
 		OrderSearchBean json = new OrderSearchBean();
-		OrderEntity entity = new OrderEntity();
-		List<OrderEntity> list =  orderPersist.findByProvAndCityAndShopState(entity);
-		for (OrderEntity enti : list) {
+		PageBean pageBean = new PageBean();
+		pageBean.setPageNumber(order.getPageNumber());
+		pageBean.setPageSize(order.getPageSize());
+		Page<OrderEntity> page =  orderPersist.search(bulidEntity(order), pageBean);
+		for (OrderEntity enti : page.getContent()) {
 			json.getList().add(bulidBean(enti));
 		}
 		json.setSuccess(true);
@@ -115,6 +118,7 @@ public class OrderService {
 		entity.setPayStatus(order.getPayStatus());
 		entity.setPayMethod(order.getPayMethod());
 		entity.setName(order.getName());
+		entity.setArea(order.getArea());
 		return entity;
 	}
 	
@@ -130,7 +134,19 @@ public class OrderService {
 		bean.setPayStatus(entity.getPayStatus());
 		bean.setPayMethod(entity.getPayMethod());
 		bean.setName(entity.getName());
+		bean.setArea(entity.getAddress());
 		return bean;
+	}
+	
+	public OrderEntity bulidEntity(OrderSearchBean order){
+		OrderEntity entity = new OrderEntity();
+		entity.setDate(order.getCreateDate());
+		entity.setId(order.getId());
+		entity.setClientId(order.getClientId());
+		entity.setStatus(order.getStatus());
+		entity.setName(order.getClientName());
+		entity.setArea(order.getArea());
+		return entity;
 	}
 	
 }

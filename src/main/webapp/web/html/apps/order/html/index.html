@@ -10,52 +10,51 @@
 	<body>
 		<div class="content">
 			<ul class="tab">
-				<li data-module="client" class="tab-active">客户登记/查询</li>
-				<li data-module="gift" class="">赠品登记/查询</li>
-				<li data-module="area" class="">区域设置</li>
+				<li data-module="query" class="tab-active">订单查询</li>
+				<li data-module="delivery" class="">订单配送</li>
+				<li data-module="complete" class="">订单完成情况</li>
 			</ul>
 			<div>
-				<div class="tab-cons hide" id="client">
+				<div class="tab-cons hide" id="query">
 					<div class="fm-row">
 						<div>
-							<label class="fm-lb">省份：</label>
-							<select id="province" name="province" class="ht-select"></select>
+							<label class="fm-lb">日期：</label>
+							<input type="text" class="date" name="createDate">
 						</div>
 						<div>
-							<label class="fm-lb">城市：</label>
-							<select id="city" class="ht-select" name="city"></select>
+							<label class="fm-lb">学号：</label>
+							<input type="text" name="clientName">
 						</div>
 						<div>
-							<label class="fm-lb">专柜状态:</label>
-							<select class="ht-select" name="shopState">
+							<label class="fm-lb">区域:</label>
+							<select class="ht-select" name="area">
 								<option value="">所有</option>
-								<option value="有专柜">有专柜</option>
-								<option value="无专柜">无专柜</option>
-							</select>
+	                          	<option value="桃李">桃李区</option>
+	                          	<option value="成蹊">成蹊区</option>
+	                        </select>
 						</div>
 						<div>
-							<label class="fm-lb">姓名：</label>
-							<input type="text" name="name" />
+							<label class="fm-lb">订单状态:</label>
+							<select class="ht-select" name="status">
+								<option value="">所有</option>
+								<option value="0">未接单</option>
+								<option value="1">已接单</option>
+								<option value="2">配送中</option>
+								<option value="3">配送完成</option>
+							</select>
 						</div>
 						<div class="btn-grp">
 							<button class="btn search">
 								<i class="icon-search"></i> 搜索
 							</button>
 							<button class="btn add">
-								<i class="icon-plus"></i> 新增
-							</button>
-							<input type="file" id="client-excel" class="hide" />
-							<button class="btn import">
-								导入
-							</button>
-							<button class="btn export">
-								导出
+								<i class="icon-plus"></i> 新增订单
 							</button>
 						</div>
 					</div>
 					<div class="list"></div>
 				</div>
-				<div class="tab-cons hide" id="gift">
+				<div class="tab-cons hide" id="delivery">
 					<div class="fm-row">
 						<div>
 							<label class="fm-lb">开始日期：</label>
@@ -83,7 +82,7 @@
 					</div>
 					<div class="list"></div>
 				</div>
-				<div class="tab-cons hide" id="area">
+				<div class="tab-cons hide" id="complete">
 					<div class="fm-row">
 						<div>
 							<label class="fm-lb">省：</label>
@@ -121,97 +120,19 @@
 				</div>
 			</div>
 		</div>
-		<div id="gift_add" class="hide">
+		<div id="order_add_dialog" class="hide">
 			<div class="fm-row">
 				<div>
-					<label class="fm-lb">姓名</label>
-					<input type="text" name="name" />
-					<input type="hidden" name="id" />
+					<label>学号</label>
+					<div></div>
 				</div>
 				<div>
-					<label class="fm-lb">联系电话</label>
-					<input type="text" name="phone" class="ht-number"/>
+					<label>区域</label>
+					<select></select>
 				</div>
 				<div>
-					<label class="fm-lb">日期</label>
-					<input type="text" class="date" name="date"  id="gift_add_date"/>
+					<label></label>
 				</div>
-			</div>
-			<div class="bn-grp align-center">
-				<button class="btn">
-						提交
-				</button>
-			</div>
-		</div>
-		<div id="area_update_dialog" class="hide">
-			<div class="fm-row">
-				<div>
-					<label class="fm-lb">省:</label>
-					<input name="prov" readonly type="text" />
-					<input name="id" type="hidden">
-				</div>
-				<div>
-					<label class="fm-lb">市:</label>
-					<input name="city" readonly type="text" />
-				</div>
-				<div>
-					<label class="fm-lb">专柜状态:</label>
-					<select class="ht-select" name="shopState">
-						<option value="有专柜">有专柜</option>
-						<option value="无专柜">无专柜</option>
-					</select>
-				</div>
-			</div>
-			<div class="btn-grp align-center">
-				<button class="btn submit-update">
-					提交
-				</button>
-			</div>
-		</div>
-		<div id="client_add_dialog" class="hide">
-			<div class="fm-row">
-				<div>
-					<label class="fm-lb">姓名：</label>
-					<input type="text" name="name" class="required" maxlength='30'/>
-					<input type="hidden" name="id">
-				</div>
-				<div>
-					<label class="fm-lb">手机号：</label>
-					<input type="text" name="phoneNumber" class="ht-number required" maxlength='20'/>
-				</div>
-				<div>
-					<label class="fm-lb">联系电话：</label>
-					<input type="text" name="telNumber" maxlength='20'/>
-				</div>
-				<div>
-					<label class="fm-lb">区域省份：</label>
-					<select class="ht-select required province" id="client_add_prov" name="province"></select>
-				</div>
-				<div>
-					<label class="fm-lb">区域市：</label>
-					<select class="ht-select required city" id="client_add_city" name="city"></select>
-				</div>
-				<div>
-					<label class="fm-lb">联系地址：</label>
-					<input type="text" name="address" class="required long" maxlength='255'/>
-				</div>
-				<div>
-					<label class="fm-lb">邮编：</label>
-					<input type="text" name="postCode" maxlength='10'/>
-				</div>
-				<div>
-					<label class="fm-lb">生日：</label>
-					<input type="text" name="birthday" class="date"/>
-				</div>
-				<div>
-					<label class="fm-lb">专柜名：</label>
-					<input type="text" name="shopName" maxlength='100'/>
-				</div>
-			</div>
-			<div class="btn-grp align-center">
-				<button class="btn submit-update">
-					提交
-				</button>
 			</div>
 		</div>
 		<script type="text/javascript" src="../../../../js/lib/jquery/jquery.min.js"></script>
@@ -219,6 +140,6 @@
 		<script type="text/javascript" src="../../../../js/util/ui.js"></script>
 		<script type="text/javascript" src="../../../../js/util/app-utils.js"></script>
 		<script type="text/javascript" src="../../../../js/util/desktop-utils.js"></script>
-		<script type="text/javascript" src="../js/client.js"></script>
+		<script type="text/javascript" src="../js/order.js"></script>
 	</body>
 </html>

@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lbyt.client.dao.IClientAddressDao;
 import com.lbyt.client.entity.ClientAddrEntity;
-import com.lbyt.client.entity.ClientEntity;
 
 @Repository
 public class ClientAddressPersistService {
