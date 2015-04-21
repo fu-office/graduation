@@ -1,20 +1,26 @@
 (function(){
 	function submit(){}
 	
+	function toHistory(){
+		location.href = './order-list.html?token=' + app.getURLParams().token;
+	}
+	
 	function toggleNewAddrSection(flag){
 		flag ? $('.new-addr').removeClass('hide') : $('.new-addr').addClass('hide');
 	}
 	
 	function submitOrder(data) {
+		data.address = data.area + '区' + data.department + '幢' + data.floor + '楼' + data.room;
+		delete data.id;
 		Ajax.json({
-			url: 'order/save.json',
+			url: 'order/saveOrUpdate.json',
 			data : data,
 			success: function(result){
 				$.tipBox({
 					type: 'success',
 					message: '提交成功',
 					close : function(){
-						location.href = './order-list.html?token=' + app.getURLParams().token;
+						toHistory();
 					}
 				});
 			},
@@ -95,6 +101,9 @@
 	});
 	$('#cancel_submit').bind('click', function(){
 		toggleNewAddrSection(false);
+	});
+	$('#hist-orders').bind('click', function(){
+		toHistory();
 	});
 	// init
 	getClientAddress();

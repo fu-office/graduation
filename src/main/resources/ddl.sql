@@ -127,7 +127,7 @@ CREATE TABLE `water_order` (
   `order_status` char(1) DEFAULT '0',
   `order_address` varchar(50) DEFAULT '0',
   `delivery_date` date DEFAULT NULL,
-  `delivery_time` varchar(8) DEFAULT NULL,
+  `delivery_time` varchar(12) DEFAULT NULL,
   `pay_status` char(1) DEFAULT '0',
   `pay_method` char(1) DEFAULT '0',
   `department` varchar(30) DEFAULT '',

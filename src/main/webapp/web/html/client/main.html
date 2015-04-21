@@ -16,6 +16,9 @@
             <div class="order-head">
               <a href="javascript:/*fzl*/">菜园订水</a>
             </div>
+            <div class="right">
+            	<a href="javascript:void(0);" id="hist-orders">我的订单</a>
+            </div>
         	<div class="title">
         		配送地址
         	</div>
@@ -74,12 +77,20 @@
         	</div>
             <div class="deliver-box">
               <div class="row">
-                <select name="deliveryDay" id="day_list" class="required">
+                <select name="deliveryDate" id="day_list" class="required">
                 </select>
               </div>
               <div class="row">
                 <select name="deliveryTime" id="time_list" class="required"></select>
               </div>
+            </div>
+            <div class="title">
+            	商品
+            </div>
+            <div class="deliver-box">
+            	<select>
+            		<option>桶装水</option>
+            	</select>
             </div>
         	<div class="row submit-row">
         		<button class="btn btn-primary" id="order_submit">提交订单</button>

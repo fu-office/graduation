@@ -43,7 +43,7 @@ public class OrderEntity implements Serializable {
 	private String deliveryTime;
 	
 	@Column(name="delivery_date")
-	private String deliveryDate;
+	private Date deliveryDate;
 	
 	@Column(name="pay_status")
 	private String payStatus;
@@ -129,11 +129,11 @@ public class OrderEntity implements Serializable {
 		this.deliveryTime = deliveryTime;
 	}
 
-	public String getDeliveryDate() {
+	public Date getDeliveryDate() {
 		return deliveryDate;
 	}
 
-	public void setDeliveryDate(String deliveryDate) {
+	public void setDeliveryDate(Date deliveryDate) {
 		this.deliveryDate = deliveryDate;
 	}
 

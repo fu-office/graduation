@@ -129,11 +129,14 @@ public class ClientService {
 		entity.setRegistName(client.getRegistName());
 		entity.setPassword(client.getPassword());
 		entity.setRemark(client.getRemark());
+		entity.setPhone(client.getPhone());
+		entity.setClientName(client.getRegistName());
 		return entity;
 	}
 	
 	public ClientBean bulidBean(ClientEntity entity) {
 		ClientBean bean = new ClientBean();
+		bean.setPhone(entity.getPhone());
 		bean.setRegistDate(entity.getRegistDate());
 		bean.setId(entity.getId());
 		bean.setAddress(entity.getAddress());

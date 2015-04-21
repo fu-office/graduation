@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import com.lbyt.client.bean.ClientBean;
 import com.lbyt.client.bean.JsonBean;
 import com.lbyt.client.bean.OrderBean;
 import com.lbyt.client.bean.OrderSearchBean;
 import com.lbyt.client.bean.PageBean;
+import com.lbyt.client.entity.ClientEntity;
 import com.lbyt.client.entity.OrderEntity;
 import com.lbyt.client.error.ErrorBean;
 import com.lbyt.client.persistservice.OrderPersistService;
@@ -127,6 +129,7 @@ public class OrderService {
 		bean.setDate(entity.getDate());
 		bean.setId(entity.getId());
 		bean.setAddress(entity.getAddress());
+		bean.setDeliveryDate(entity.getDeliveryDate());
 		bean.setDeliveryTime(entity.getDeliveryTime());
 		bean.setClientId(entity.getClientId());
 		bean.setStatus(entity.getStatus());
@@ -147,6 +150,18 @@ public class OrderService {
 		entity.setName(order.getClientName());
 		entity.setArea(order.getArea());
 		return entity;
+	}
+
+	public OrderSearchBean getOrdersByClient(OrderSearchBean order) {
+		OrderSearchBean json = new OrderSearchBean();
+		if (null != order.getClientId()) {
+			List<OrderEntity> list = orderPersist.findByClientId(bulidEntity(order));
+			for (OrderEntity entity : list) {
+				json.getList().add(bulidBean(entity));
+			}
+		}
+		json.setSuccess(true);
+		return json;
 	}
 	
 }

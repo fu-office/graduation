@@ -2,7 +2,9 @@ package com.lbyt.client.bean;
 
 import java.util.Date;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.lbyt.client.enums.OrderPayMethodEnum;
+import com.lbyt.client.enums.OrderPayStatusEnum;
+import com.lbyt.client.enums.OrderStatusEnum;
 
 public class OrderBean extends  JsonBean  {
 	
@@ -16,27 +18,32 @@ public class OrderBean extends  JsonBean  {
 	
 	private String name;
 	
-	private Date date;
+	private Date date = new Date();
 	
-	private String status;
+	private String status = OrderStatusEnum.UNORDER.toString();
 	
 	private String address;
 	
 	private String deliveryTime;
 	
-	private String deliveryDate;
+	private Date deliveryDate;
 	
-	private String payStatus;
+	private String payStatus = OrderPayStatusEnum.UNPAY.toString();
 	
-	private String payMethod;
+	private String payMethod = OrderPayMethodEnum.ONLINE.toString();
 	
 	private String area;
+	
+	private String floor;
+	
+	private String department;
+	
+	private String room;
 
 	public Integer getId() {
 		return id;
 	}
 
-	@JsonProperty("id")
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -45,7 +52,6 @@ public class OrderBean extends  JsonBean  {
 		return clientId;
 	}
 
-	@JsonProperty("clientId")
 	public void setClientId(Integer clientId) {
 		this.clientId = clientId;
 	}
@@ -53,8 +59,7 @@ public class OrderBean extends  JsonBean  {
 	public String getPhone() {
 		return phone;
 	}
-	
-	@JsonProperty("phone")
+
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
@@ -63,7 +68,6 @@ public class OrderBean extends  JsonBean  {
 		return name;
 	}
 
-	@JsonProperty("name")
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -72,7 +76,6 @@ public class OrderBean extends  JsonBean  {
 		return date;
 	}
 
-	@JsonProperty("date")
 	public void setDate(Date date) {
 		this.date = date;
 	}
@@ -81,7 +84,6 @@ public class OrderBean extends  JsonBean  {
 		return status;
 	}
 
-	@JsonProperty("status")
 	public void setStatus(String status) {
 		this.status = status;
 	}
@@ -90,7 +92,6 @@ public class OrderBean extends  JsonBean  {
 		return address;
 	}
 
-	@JsonProperty("address")
 	public void setAddress(String address) {
 		this.address = address;
 	}
@@ -99,16 +100,22 @@ public class OrderBean extends  JsonBean  {
 		return deliveryTime;
 	}
 
-	@JsonProperty("deliveryTime")
 	public void setDeliveryTime(String deliveryTime) {
 		this.deliveryTime = deliveryTime;
+	}
+
+	public Date getDeliveryDate() {
+		return deliveryDate;
+	}
+
+	public void setDeliveryDate(Date deliveryDate) {
+		this.deliveryDate = deliveryDate;
 	}
 
 	public String getPayStatus() {
 		return payStatus;
 	}
 
-	@JsonProperty("payStatus")
 	public void setPayStatus(String payStatus) {
 		this.payStatus = payStatus;
 	}
@@ -117,17 +124,8 @@ public class OrderBean extends  JsonBean  {
 		return payMethod;
 	}
 
-	@JsonProperty("payMethod")
 	public void setPayMethod(String payMethod) {
 		this.payMethod = payMethod;
-	}
-
-	public String getDeliveryDate() {
-		return deliveryDate;
-	}
-
-	public void setDeliveryDate(String deliveryDate) {
-		this.deliveryDate = deliveryDate;
 	}
 
 	public String getArea() {
@@ -138,4 +136,28 @@ public class OrderBean extends  JsonBean  {
 		this.area = area;
 	}
 
+	public String getFloor() {
+		return floor;
+	}
+
+	public void setFloor(String floor) {
+		this.floor = floor;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public String getRoom() {
+		return room;
+	}
+
+	public void setRoom(String room) {
+		this.room = room;
+	}
+	
 }
