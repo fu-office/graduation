@@ -41,6 +41,7 @@
 								<option value="1">已接单</option>
 								<option value="2">配送中</option>
 								<option value="3">配送完成</option>
+								<option value="4">取消</option>
 							</select>
 						</div>
 						<div class="btn-grp">
@@ -56,27 +57,9 @@
 				</div>
 				<div class="tab-cons hide" id="delivery">
 					<div class="fm-row">
-						<div>
-							<label class="fm-lb">开始日期：</label>
-							<input type="text" class="date" name="startDate" id="gift_start_date"/>							
-						</div>
-						<div>
-							<label class="fm-lb">结束日期：</label>
-							<input type="text" class="date" name="endDate" id="gift_end_date"/>							
-						</div>
 						<div class="btn-grp">
 							<button class="btn search">
-								<i class="icon-search"></i> 搜索
-							</button>
-							<button class="btn add">
-								<i class="icon-plus"></i> 添加
-							</button>
-							<input type="file" id="gift_excel" class="hide"/>
-							<button class="btn import">
-								导入
-							</button>
-							<button class="btn export">
-								导出
+								<i class="icon-refresh"></i> 刷新
 							</button>
 						</div>
 					</div>
@@ -85,20 +68,24 @@
 				<div class="tab-cons hide" id="complete">
 					<div class="fm-row">
 						<div>
-							<label class="fm-lb">省：</label>
-							<select class="ht-select" id="area_prov" name="prov"></select>
+							<label class="fm-lb">订单编号：</label>
+							<input type="text" name="id">
 						</div>
 						<div>
-							<label class="fm-lb">市：</label>
-							<select class="ht-select" id="area_city" name="city"></select>
+							<label class="fm-lb">日期：</label>
+							<input type="text" class="date" name="createDate">
 						</div>
 						<div>
-							<label class="fm-lb">专柜状态：</label>
-							<select class="ht-select" id="area_shop" name="shopState">
+							<label class="fm-lb">学号：</label>
+							<input type="text" name="clientName">
+						</div>
+						<div>
+							<label class="fm-lb">区域:</label>
+							<select class="ht-select" name="area">
 								<option value="">所有</option>
-								<option value="有专柜">有专柜</option>
-								<option value="无专柜">无专柜</option>
-							</select>
+	                          	<option value="桃李">桃李区</option>
+	                          	<option value="成蹊">成蹊区</option>
+	                        </select>
 						</div>
 						<div class="btn-grp">
 							<button class="btn search">

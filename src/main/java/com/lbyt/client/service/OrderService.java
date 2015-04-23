@@ -8,12 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import com.lbyt.client.bean.ClientBean;
 import com.lbyt.client.bean.JsonBean;
 import com.lbyt.client.bean.OrderBean;
 import com.lbyt.client.bean.OrderSearchBean;
 import com.lbyt.client.bean.PageBean;
-import com.lbyt.client.entity.ClientEntity;
 import com.lbyt.client.entity.OrderEntity;
 import com.lbyt.client.error.ErrorBean;
 import com.lbyt.client.persistservice.OrderPersistService;
@@ -162,6 +160,18 @@ public class OrderService {
 		}
 		json.setSuccess(true);
 		return json;
+	}
+	
+	public OrderSearchBean getScheduleOrder(OrderSearchBean order){
+		PageBean pageBean = new PageBean();
+		pageBean.setPageNumber(order.getPageNumber());
+		pageBean.setPageSize(order.getPageSize());
+		Page<OrderEntity> list = orderPersist.searchSchedule(bulidEntity(order), pageBean);
+		for (OrderEntity entity : list.getContent()) {
+			order.getList().add(bulidBean(entity));
+		}
+		order.setSuccess(true);
+		return order;
 	}
 	
 }

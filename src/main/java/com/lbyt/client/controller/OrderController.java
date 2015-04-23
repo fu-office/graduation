@@ -67,4 +67,10 @@ public class OrderController {
 		}
 		return orderService.getOrdersByClient(bean);
 	}
+	
+	@RequestMapping("/scheduleOrder.json")
+	@ResponseBody
+	public OrderSearchBean findScheduleOrder(@RequestBody OrderSearchBean bean){
+		return orderService.getScheduleOrder(bean);
+	}
 }

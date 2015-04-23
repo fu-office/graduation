@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.lbyt.client.bean.PageBean;
 import com.lbyt.client.dao.IOrderDao;
 import com.lbyt.client.entity.OrderEntity;
+import com.lbyt.client.enums.OrderStatusEnum;
 import com.lbyt.client.util.StringUtil;
 
 @Repository
@@ -53,7 +54,7 @@ public class OrderPersistService {
 			@Override
 			public Predicate toPredicate(Root<OrderEntity> root,
 					CriteriaQuery<?> query, CriteriaBuilder cb) {
-				Path<Date> createDate = root.get("date");
+				Path<Date> createDate = (Path<Date>) root.get("date").as(Date.class);
 				Path<String> status = root.get("status");
 				Path<String> area = root.get("area");
 				Path<String> name = root.get("name");
@@ -97,6 +98,26 @@ public class OrderPersistService {
 	@Transactional(propagation = Propagation.SUPPORTS)
 	public List<OrderEntity> findByClientName(OrderEntity entity){
 		return orderDao.findByName(entity.getName());
+	}
+
+	@Transactional(propagation = Propagation.SUPPORTS)
+	public Page<OrderEntity> searchSchedule(final OrderEntity entity,
+			final PageBean pageBean) {
+		return orderDao.findAll(new Specification<OrderEntity>(){
+
+			@Override
+			public Predicate toPredicate(Root<OrderEntity> root,
+					CriteriaQuery<?> query, CriteriaBuilder cb) {
+				Path<String> status = root.get("status");
+				Path<Date> deliveryDate = root.get("deliveryDate");
+				Predicate predicate = null;
+				predicate = cb.equal(status, OrderStatusEnum.UNORDER.toString());
+				predicate = cb.or(predicate, cb.equal(status, OrderStatusEnum.ORDERED.toString()));
+				predicate = cb.and(predicate, cb.equal(deliveryDate, cb.currentDate()));
+ 				return predicate;
+			}
+			
+		}, new PageRequest(pageBean.getPageNumber() - 1, pageBean.getPageSize(), new Sort(Direction.ASC, "deliveryDate")));
 	}
 	
 }

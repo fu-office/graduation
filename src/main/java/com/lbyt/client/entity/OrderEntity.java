@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "water_order")
@@ -31,6 +33,7 @@ public class OrderEntity implements Serializable {
 	private String name;
 	
 	@Column(name="create_date")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 	
 	@Column(name="order_status")
@@ -43,6 +46,7 @@ public class OrderEntity implements Serializable {
 	private String deliveryTime;
 	
 	@Column(name="delivery_date")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date deliveryDate;
 	
 	@Column(name="pay_status")

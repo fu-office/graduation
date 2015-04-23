@@ -9,8 +9,24 @@
 			$(this).select("value", obj[this.name]);
 		});
 	};
+	var orderStatus = {
+			0 : '未接单',
+			1 : '已接单',
+			2 : '配送中',
+			3 : '完成',
+	};
+	var payStatus = {
+			0 : '未支付',
+			1 : '已支付'
+	};
+	var payMethod = {
+			0 : '货到付款',
+			1 : '在线支付',
+			2 : '赊账'
+	};
 	var URL = {
 		 ORDER_SEARCH : "order/search.json",
+		 SCHEDULE_ORDER_SEARCH :'order/scheduleOrder.json',
 		 CLIENT_SEARCH : "customer/search.json",
 		 CLIENT_DELETE : "customer/deleteById.json",
 		 CLIENT_SAVE : "customer/save.json",
@@ -25,17 +41,21 @@
 					single : true,
 					height : 400,
 					columns : [{title:"编号",field:"id",width:80},
-					{title : "日期", field : "registerDate",width:120, formatter : function(ui, data){
+					{title : "下单日期", field : "date",width:120, formatter : function(ui, data){
 						return data.cell ? $.formatDate(new Date(data.cell), "yyyy-MM-dd") : "";
 					}},
-					{title : "订单状态", field : "status",width:100},
+					{title : "配送日期", field : "deliveryDate",width:180, formatter : function(ui, data){
+						return data.cell ? $.formatDate(new Date(data.cell), "yyyy-MM-dd") + ' ' + data.row.deliveryTime : "";
+					}},
+					{title : "订单状态", field : "status",width:100, formatter:function(ui, data){
+						return orderStatus[data.cell];
+					}},
 					{title : "订单金额", field : "total",width:100},
-					{title : "手机号", field : "phoneNumber",width:120},
-					{title : "送货地址", field : "address",width:200},
-					{title : "操作", field : "opera",width:120, formatter : function(ui, data){
-						return "<a href='javascript:void(0);' class='edit-link'> 修改 </a> " +
-							"<a href='javascript:void(0);' class='delete-link'> 删除 </a>";
-					}}],
+					{title : "支付状态", field : "payStatus",width:100, formatter:function(ui, data){
+						return payMethod[data.row.payMethod] + ' <span class="' + (data.cell == 0 ? 'error' : '') + '">' + payStatus[data.cell] + '</span>';
+					}},
+					{title : "联系电话", field : "phone",width:120},
+					{title : "送货地址", field : "address",width:200}],
 					pagination : true,
 					pager : {
 						select : function(pageNum, pageSize){
@@ -66,7 +86,7 @@
 					url : URL.ORDER_SEARCH,
 					data : data,
 					success : function(d){
-						$m.find(".list").grid("loadData", {rows : d.list, total : d.count,
+						$m.find(".list").grid("loadData", {rows : d.list, total : d.count || d.list.length,
 							currentPage : data.pageNumber || 1, pageSize : d.pageSize || 10});
 					}
 				});
@@ -108,14 +128,21 @@
 					height : 400,
 					single : true,
 					columns : [{title : "编号", field : "id", width : 80},
-					{title : "姓名", field : "name"},
-					{title : "联系电话", field : "phone"},
-					{title : "登记日期", field : "date", formatter : function(ui, data){
-						return $.formatDate(new Date(data.cell), "yyyy-MM-dd");
+					{title : "学号", field : "name", width: 80},
+					{title : "配送日期", field : "deliveryDate",width:180, formatter : function(ui, data){
+						return data.cell ? $.formatDate(new Date(data.cell), "yyyy-MM-dd") + ' ' + data.row.deliveryTime : "";
 					}},
+					{title : "送货地址", field : "address",width:200},
+					{title : "订单状态", field : "status",width:100, formatter:function(ui, data){
+						return orderStatus[data.cell];
+					}},
+					{title : "订单金额", field : "total",width:100},
+					{title : "支付状态", field : "payStatus",width:100, formatter:function(ui, data){
+						return payMethod[data.row.payMethod] + ' <span class="' + (data.cell == 0 ? 'error' : '') + '">' + payStatus[data.cell] + '</span>';
+					}},
+					{title : "联系电话", width: 150, field : "phone"},
 					{title : "操作", field : "opera", width : 100, formatter : function(ui, data){
-						return "<a href='javascript:void(0);' class='edit-link'>修改</a>&nbsp;&nbsp;" + 
-							"<a href='javascript:void(0);' class='delete-link'>删除</a>";
+						return data.row.status == 0 ? "<a href='javascript:void(0);' class='edit-link'>接单</a>&nbsp;&nbsp;" : "<a href='javascript:void(0);' class='delivery-link'>配送</a>"; 
 					}}],
 					pagination : true,
 					pager : {
@@ -189,7 +216,7 @@
 			search : function(data){
 				var $m = this.$m;
 				$.ajaxJSON({
-					url : URL.GIFT_SEARCH,
+					url : URL.SCHEDULE_ORDER_SEARCH,
 					data : data,
 					success : function(d){
 						$m.find(".list").grid("loadData", {
@@ -203,7 +230,7 @@
 			}
 	},
 	Complete = {
-			$m : $("complete"),
+			$m : $("#complete"),
 			init : function(){
 				var $m = this.$m,
 					_self = this;
