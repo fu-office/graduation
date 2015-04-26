@@ -28,7 +28,7 @@ public class ProductEntity implements Serializable {
 	private Date date;
 	
 	@Column(name="price")
-	private Integer price;
+	private Float price;
 
 	public Integer getId() {
 		return id;
@@ -54,11 +54,11 @@ public class ProductEntity implements Serializable {
 		this.date = date;
 	}
 
-	public Integer getPrice() {
+	public Float getPrice() {
 		return price;
 	}
 
-	public void setPrice(Integer price) {
+	public void setPrice(Float price) {
 		this.price = price;
 	}
 	

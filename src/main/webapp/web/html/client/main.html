@@ -87,10 +87,26 @@
             <div class="title">
             	商品
             </div>
-            <div class="deliver-box">
-            	<select>
-            		<option>桶装水</option>
-            	</select>
+            <div class="item-box">
+            	<div class="fm-row">
+            		<div>
+		            	<ul id="prodList">
+		            		<li class="order-item">
+		            			<div>
+			            			<label class="fm-lb">桶装水</label>
+			            			<input type="hidden" data-value="16.00" name="price" class="item-price">
+			            			<input type="hidden" data-value="1" name="productId" class="item-id">
+			            			<input type="hidden" data-value="桶装水" name="productName" class="item-name">
+			            			<input type="text" name="num" class="ht-number item-num required"  placeholder="订购数量"> 
+		            			</div>
+		            		</li>
+		            	</ul>
+            		</div>
+	            	<div>
+	            		<label class="fm-lb">总价：</label>
+	            		<div class="fm-text" id="total">0.00</div>
+	            	</div>
+            	</div>
             </div>
         	<div class="row submit-row">
         		<button class="btn btn-primary" id="order_submit">提交订单</button>

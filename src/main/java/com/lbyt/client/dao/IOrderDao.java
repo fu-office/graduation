@@ -39,4 +39,9 @@ public interface IOrderDao extends Repository<OrderEntity, Integer>{
 	@Transactional(propagation = Propagation.SUPPORTS)
 	@Query("select a from OrderEntity a where a.name = ?1")
 	List<OrderEntity> findByName(String name);
+
+	@Transactional(propagation = Propagation.REQUIRED)
+	@Modifying
+	@Query("update OrderEntity a set a.payStatus = ?1 where a.id = ?2")
+	int updatePayStatus(String payStatus, Integer id);
 }

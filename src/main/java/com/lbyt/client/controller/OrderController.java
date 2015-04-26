@@ -73,4 +73,16 @@ public class OrderController {
 	public OrderSearchBean findScheduleOrder(@RequestBody OrderSearchBean bean){
 		return orderService.getScheduleOrder(bean);
 	}
+	
+	@RequestMapping("/updatePayStatus.json")
+	@ResponseBody
+	public OrderBean updatePayStatus(@RequestBody OrderBean bean){
+		return orderService.updatePayStatus(bean);
+	}
+	
+	@RequestMapping("/updateOrderStatus.json")
+	@ResponseBody
+	public OrderBean updateOrderStatus(@RequestBody OrderBean bean){
+		return null;
+	}
 }

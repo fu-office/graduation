@@ -2,12 +2,17 @@ package com.lbyt.client.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -60,6 +65,13 @@ public class OrderEntity implements Serializable {
 	
 	@Column(name="area")
 	private String area;
+	
+	@Column(name="total")
+	private Float total;
+	
+	@OneToMany(cascade={CascadeType.ALL,CascadeType.REMOVE},fetch=FetchType.EAGER)
+	@JoinColumn(name="order_id")
+	private List<OrderItemEntity> items;
 
 	public String getArea() {
 		return area;
@@ -163,6 +175,22 @@ public class OrderEntity implements Serializable {
 
 	public void setDepartment(String department) {
 		this.department = department;
+	}
+
+	public List<OrderItemEntity> getItems() {
+		return items;
+	}
+
+	public void setItems(List<OrderItemEntity> items) {
+		this.items = items;
+	}
+
+	public Float getTotal() {
+		return total;
+	}
+
+	public void setTotal(Float total) {
+		this.total = total;
 	}
 	
 }

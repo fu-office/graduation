@@ -50,7 +50,7 @@ CREATE TABLE `product` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `p_name` varchar(64) NOT NULL,
   `create_date` date DEFAULT NULL,
-  `price` int(8) DEFAULT 0,
+  `price` float(8,2) DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -62,8 +62,8 @@ DROP TABLE IF EXISTS `stock`;
 CREATE TABLE `stock` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `num` varchar(64) NOT NULL,
-  `pid` char(5) NOT NULL,
-  `regist_name` varchar(12) NOT NULL,
+  `p_id` char(5) NOT NULL,
+  `p_name` varchar(20),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -75,10 +75,11 @@ DROP TABLE IF EXISTS `stock_order`;
 CREATE TABLE `stock_order` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `stock_id` int(10) unsigned NOT NULL,
-  `pid` int(10) unsigned NOT NULL,
+  `p_id` int(10) unsigned NOT NULL,
   `p_name` varchar(64) NOT NULL,
   `num` int(8) NOT NULL,
   `type` int(1) NOT NULL,
+  `create_date` date,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -132,6 +133,7 @@ CREATE TABLE `water_order` (
   `pay_method` char(1) DEFAULT '0',
   `department` varchar(30) DEFAULT '',
   `area` varchar(30) DEFAULT '',
+  `total` float(10,2) DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -141,7 +143,7 @@ CREATE TABLE `water_order` (
 DROP TABLE IF EXISTS `water_order_items`;
 CREATE TABLE `water_order_items` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `order_id` int(11) unsigned NOT NULL,
+  `order_id` int(11) unsigned,
   `p_id` int(11) unsigned NOT NULL,
   `p_name` varchar(60),
   `p_price` int(8),
@@ -161,3 +163,5 @@ CREATE TABLE `wx_client` (
   `regist_name` varchar(12) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert into product (p_name, create_date, price)  values ("桶装水", '2015-04-30', 16.00);

@@ -1,6 +1,8 @@
 package com.lbyt.client.bean;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.lbyt.client.enums.OrderPayMethodEnum;
 import com.lbyt.client.enums.OrderPayStatusEnum;
@@ -39,6 +41,10 @@ public class OrderBean extends  JsonBean  {
 	private String department;
 	
 	private String room;
+	
+	private Float total;
+	
+	private List<OrderItemBean> items = new ArrayList<OrderItemBean>();
 
 	public Integer getId() {
 		return id;
@@ -158,6 +164,22 @@ public class OrderBean extends  JsonBean  {
 
 	public void setRoom(String room) {
 		this.room = room;
+	}
+
+	public List<OrderItemBean> getItems() {
+		return items;
+	}
+
+	public void setItems(List<OrderItemBean> items) {
+		this.items = items;
+	}
+
+	public Float getTotal() {
+		return total;
+	}
+
+	public void setTotal(Float total) {
+		this.total = total;
 	}
 	
 }

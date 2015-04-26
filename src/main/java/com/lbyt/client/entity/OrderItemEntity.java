@@ -21,16 +21,16 @@ public class OrderItemEntity implements Serializable {
 	private Integer id;
 	
 	@Column(name="order_id")
-	private Integer clientId;
+	private Integer orderId;
 	
 	@Column(name="p_id")
 	private Integer prodId;
 	
 	@Column(name="p_name")
-	private String phone;
+	private String prodName;
 	
 	@Column(name="p_price")
-	private Integer prodPrice;
+	private Float prodPrice;
 	
 	@Column(name="num")
 	private Integer num;
@@ -43,14 +43,6 @@ public class OrderItemEntity implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getClientId() {
-		return clientId;
-	}
-
-	public void setClientId(Integer clientId) {
-		this.clientId = clientId;
-	}
-
 	public Integer getProdId() {
 		return prodId;
 	}
@@ -59,19 +51,11 @@ public class OrderItemEntity implements Serializable {
 		this.prodId = prodId;
 	}
 
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public Integer getProdPrice() {
+	public Float getProdPrice() {
 		return prodPrice;
 	}
 
-	public void setProdPrice(Integer prodPrice) {
+	public void setProdPrice(Float prodPrice) {
 		this.prodPrice = prodPrice;
 	}
 
@@ -81,6 +65,22 @@ public class OrderItemEntity implements Serializable {
 
 	public void setNum(Integer num) {
 		this.num = num;
+	}
+
+	public Integer getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
+	}
+
+	public String getProdName() {
+		return prodName;
+	}
+
+	public void setProdName(String prodName) {
+		this.prodName = prodName;
 	}
 	
 }

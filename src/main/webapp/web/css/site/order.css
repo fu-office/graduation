@@ -48,7 +48,7 @@
 .flex-select-div input{
 	width: 100%;
 }
-.deliver-box{
+.deliver-box, .item-box{
 	padding: 10px;
 }
 .deliver-box select{

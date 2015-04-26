@@ -10,59 +10,35 @@
 	<body>
 		<div class="content">
 			<ul class="tab">
-				<li data-module="client" class="tab-active">客户登记/查询</li>
-				<li data-module="gift" class="">赠品登记/查询</li>
-				<li data-module="area" class="">区域设置</li>
+				<li data-module="search" class="tab-active">库存查询</li>
+				<li data-module="inout" class="">出入库</li>
 			</ul>
 			<div>
-				<div class="tab-cons hide" id="client">
+				<div class="tab-cons hide" id="search">
 					<div class="fm-row">
 						<div>
-							<label class="fm-lb">省份：</label>
-							<select id="province" name="province" class="ht-select"></select>
-						</div>
-						<div>
-							<label class="fm-lb">城市：</label>
-							<select id="city" class="ht-select" name="city"></select>
-						</div>
-						<div>
-							<label class="fm-lb">专柜状态:</label>
-							<select class="ht-select" name="shopState">
-								<option value="">所有</option>
-								<option value="有专柜">有专柜</option>
-								<option value="无专柜">无专柜</option>
-							</select>
-						</div>
-						<div>
-							<label class="fm-lb">姓名：</label>
-							<input type="text" name="name" />
+							<label class="fm-lb">产品名称：</label>
+							<input type="text" name="productName" />
 						</div>
 						<div class="btn-grp">
 							<button class="btn search">
 								<i class="icon-search"></i> 搜索
 							</button>
-							<button class="btn add">
-								<i class="icon-plus"></i> 新增
-							</button>
-							<input type="file" id="client-excel" class="hide" />
-							<button class="btn import">
-								导入
-							</button>
-							<button class="btn export">
-								导出
-							</button>
 						</div>
 					</div>
 					<div class="list"></div>
 				</div>
-				<div class="tab-cons hide" id="gift">
+				<div class="tab-cons hide" id="inout">
 					<div class="fm-row">
 						<div>
-							<label class="fm-lb">开始日期：</label>
-							<input type="text" class="date" name="startDate" id="gift_start_date"/>							
+							<label class="fm-lb">类型</label>
+							<select name="stockType" class="ht-select">
+								<option value="0">出库</option>
+								<option value="1">入库</option>
+							</select>							
 						</div>
 						<div>
-							<label class="fm-lb">结束日期：</label>
+							<label class="fm-lb">登记日期：</label>
 							<input type="text" class="date" name="endDate" id="gift_end_date"/>							
 						</div>
 						<div class="btn-grp">
@@ -71,49 +47,6 @@
 							</button>
 							<button class="btn add">
 								<i class="icon-plus"></i> 添加
-							</button>
-							<input type="file" id="gift_excel" class="hide"/>
-							<button class="btn import">
-								导入
-							</button>
-							<button class="btn export">
-								导出
-							</button>
-						</div>
-					</div>
-					<div class="list"></div>
-				</div>
-				<div class="tab-cons hide" id="area">
-					<div class="fm-row">
-						<div>
-							<label class="fm-lb">省：</label>
-							<select class="ht-select" id="area_prov" name="prov"></select>
-						</div>
-						<div>
-							<label class="fm-lb">市：</label>
-							<select class="ht-select" id="area_city" name="city"></select>
-						</div>
-						<div>
-							<label class="fm-lb">专柜状态：</label>
-							<select class="ht-select" id="area_shop" name="shopState">
-								<option value="">所有</option>
-								<option value="有专柜">有专柜</option>
-								<option value="无专柜">无专柜</option>
-							</select>
-						</div>
-						<div class="btn-grp">
-							<button class="btn search">
-								<i class="icon-search"></i> 搜索
-							</button>
-							<button class="btn add">
-								<i class="icon-plus"></i> 新增
-							</button>
-							<input type="file" id="area-excel" class="hide" />
-							<button class="btn import">
-								导入
-							</button>
-							<button class="btn export">
-								导出
 							</button>
 						</div>
 					</div>
@@ -124,17 +57,21 @@
 		<div id="gift_add" class="hide">
 			<div class="fm-row">
 				<div>
-					<label class="fm-lb">姓名</label>
-					<input type="text" name="name" />
-					<input type="hidden" name="id" />
+					<label class="fm-lb">类型</label>
+					<select name="stockType" class="ht-select">
+						<option value="0">出库</option>
+						<option value="1">入库</option>
+					</select>	
 				</div>
 				<div>
-					<label class="fm-lb">联系电话</label>
-					<input type="text" name="phone" class="ht-number"/>
+					<label class="fm-lb">产品</label>
+					<select name="productId" class="ht-select">
+						<option value="1">桶装水</option>
+					</select>
 				</div>
 				<div>
-					<label class="fm-lb">日期</label>
-					<input type="text" class="date" name="date"  id="gift_add_date"/>
+					<label class="fm-lb">数量</label>
+					<input type="text" name="num"/>
 				</div>
 			</div>
 			<div class="bn-grp align-center">
@@ -143,82 +80,11 @@
 				</button>
 			</div>
 		</div>
-		<div id="area_update_dialog" class="hide">
-			<div class="fm-row">
-				<div>
-					<label class="fm-lb">省:</label>
-					<input name="prov" readonly type="text" />
-					<input name="id" type="hidden">
-				</div>
-				<div>
-					<label class="fm-lb">市:</label>
-					<input name="city" readonly type="text" />
-				</div>
-				<div>
-					<label class="fm-lb">专柜状态:</label>
-					<select class="ht-select" name="shopState">
-						<option value="有专柜">有专柜</option>
-						<option value="无专柜">无专柜</option>
-					</select>
-				</div>
-			</div>
-			<div class="btn-grp align-center">
-				<button class="btn submit-update">
-					提交
-				</button>
-			</div>
-		</div>
-		<div id="client_add_dialog" class="hide">
-			<div class="fm-row">
-				<div>
-					<label class="fm-lb">姓名：</label>
-					<input type="text" name="name" class="required" maxlength='30'/>
-					<input type="hidden" name="id">
-				</div>
-				<div>
-					<label class="fm-lb">手机号：</label>
-					<input type="text" name="phoneNumber" class="ht-number required" maxlength='20'/>
-				</div>
-				<div>
-					<label class="fm-lb">联系电话：</label>
-					<input type="text" name="telNumber" maxlength='20'/>
-				</div>
-				<div>
-					<label class="fm-lb">区域省份：</label>
-					<select class="ht-select required province" id="client_add_prov" name="province"></select>
-				</div>
-				<div>
-					<label class="fm-lb">区域市：</label>
-					<select class="ht-select required city" id="client_add_city" name="city"></select>
-				</div>
-				<div>
-					<label class="fm-lb">联系地址：</label>
-					<input type="text" name="address" class="required long" maxlength='255'/>
-				</div>
-				<div>
-					<label class="fm-lb">邮编：</label>
-					<input type="text" name="postCode" maxlength='10'/>
-				</div>
-				<div>
-					<label class="fm-lb">生日：</label>
-					<input type="text" name="birthday" class="date"/>
-				</div>
-				<div>
-					<label class="fm-lb">专柜名：</label>
-					<input type="text" name="shopName" maxlength='100'/>
-				</div>
-			</div>
-			<div class="btn-grp align-center">
-				<button class="btn submit-update">
-					提交
-				</button>
-			</div>
-		</div>
 		<script type="text/javascript" src="../../../../js/lib/jquery/jquery.min.js"></script>
 		<script type="text/javascript" src="../../../../js/lib/jquery/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="../../../../js/util/ui.js"></script>
 		<script type="text/javascript" src="../../../../js/util/app-utils.js"></script>
 		<script type="text/javascript" src="../../../../js/util/desktop-utils.js"></script>
-		<script type="text/javascript" src="../js/client.js"></script>
+		<script type="text/javascript" src="../js/stock.js"></script>
 	</body>
 </html>

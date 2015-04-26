@@ -1,6 +1,6 @@
 package com.lbyt.client.persistservice;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -54,13 +54,17 @@ public class OrderPersistService {
 			@Override
 			public Predicate toPredicate(Root<OrderEntity> root,
 					CriteriaQuery<?> query, CriteriaBuilder cb) {
-				Path<Date> createDate = (Path<Date>) root.get("date").as(Date.class);
+				Path<Integer> id = root.get("id");
+				Path<Date> createDate = root.get("date");
 				Path<String> status = root.get("status");
 				Path<String> area = root.get("area");
 				Path<String> name = root.get("name");
 				Predicate predicate = null;
+				if (null != entity.getId()) {
+					return cb.equal(id, entity.getId());
+				}
 				if (null != entity.getDate()) {
-					predicate = cb.equal(createDate, entity.getDate());
+					predicate = predicate == null ? cb.equal(createDate, new Date(entity.getDate().getTime())) : cb.and(predicate, cb.equal(createDate, new Date(entity.getDate().getTime())));
 				}
 				if (!StringUtil.isEmpty(entity.getStatus())) {
 					predicate = predicate == null ? cb.equal(status, entity.getStatus()) : cb.and(predicate, cb.equal(status, entity.getStatus()));
@@ -113,11 +117,18 @@ public class OrderPersistService {
 				Predicate predicate = null;
 				predicate = cb.equal(status, OrderStatusEnum.UNORDER.toString());
 				predicate = cb.or(predicate, cb.equal(status, OrderStatusEnum.ORDERED.toString()));
-				predicate = cb.and(predicate, cb.equal(deliveryDate, cb.currentDate()));
+				predicate = cb.and(predicate, cb.greaterThanOrEqualTo(deliveryDate, cb.currentDate()));
  				return predicate;
 			}
 			
 		}, new PageRequest(pageBean.getPageNumber() - 1, pageBean.getPageSize(), new Sort(Direction.ASC, "deliveryDate")));
+	}
+
+	public OrderEntity updatePayStatus(OrderEntity entity) {
+		if (orderDao.updatePayStatus(entity.getPayStatus(), entity.getId()) > 1) {
+			return entity;
+		}
+		return null;
 	}
 	
 }

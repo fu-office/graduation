@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.lbyt.client.bean.JsonBean;
 import com.lbyt.client.bean.OrderBean;
+import com.lbyt.client.bean.OrderItemBean;
 import com.lbyt.client.bean.OrderSearchBean;
 import com.lbyt.client.bean.PageBean;
 import com.lbyt.client.entity.OrderEntity;
+import com.lbyt.client.entity.OrderItemEntity;
 import com.lbyt.client.error.ErrorBean;
 import com.lbyt.client.persistservice.OrderPersistService;
 import com.lbyt.client.util.CommUtil;
@@ -102,7 +104,9 @@ public class OrderService {
 	
 	public OrderBean findById(OrderBean order) {
 		OrderEntity entity = orderPersist.findById(bulidEntity(order));
-		return bulidBean(entity);
+		OrderBean bean = bulidBean(entity);
+		bean.setSuccess(true);
+		return bean;
 	}
 	
 	private OrderEntity bulidEntity (OrderBean order) {
@@ -119,6 +123,8 @@ public class OrderService {
 		entity.setPayMethod(order.getPayMethod());
 		entity.setName(order.getName());
 		entity.setArea(order.getArea());
+		entity.setItems(bulidOrderItemEntities(order.getItems()));
+		entity.setTotal(order.getTotal());
 		return entity;
 	}
 	
@@ -136,7 +142,47 @@ public class OrderService {
 		bean.setPayMethod(entity.getPayMethod());
 		bean.setName(entity.getName());
 		bean.setArea(entity.getAddress());
+		bean.setItems(bulidOrderItemBeans(entity.getItems()));
+		bean.setTotal(entity.getTotal());
 		return bean;
+	}
+	
+	public OrderItemBean bulidOrderItemBean(OrderItemEntity entity){
+		OrderItemBean bean = new OrderItemBean();
+		bean.setOrderId(entity.getOrderId());
+		bean.setPrice(entity.getProdPrice());
+		bean.setNum(entity.getNum());
+		bean.setProductId(entity.getProdId());
+		bean.setProductName(entity.getProdName());
+		bean.setId(entity.getId());
+		return bean;
+	}
+	
+	public List<OrderItemBean> bulidOrderItemBeans(List<OrderItemEntity> enties){
+		List<OrderItemBean> list = new ArrayList<OrderItemBean>();
+		for (OrderItemEntity entity : enties) {
+			list.add(bulidOrderItemBean(entity));
+		}
+		return list;
+	}
+	
+	public OrderItemEntity bulidOrderItemEntity(OrderItemBean bean){
+		OrderItemEntity entity = new OrderItemEntity();
+		entity.setId(bean.getId());
+		entity.setNum(bean.getNum());
+		entity.setProdId(bean.getProductId());
+		entity.setProdPrice(bean.getPrice());
+		entity.setOrderId(bean.getOrderId());
+		entity.setProdName(bean.getProductName());
+		return entity;
+	}
+	
+	public List<OrderItemEntity> bulidOrderItemEntities(List<OrderItemBean> beans){
+		List<OrderItemEntity> list = new ArrayList<OrderItemEntity>();
+		for (OrderItemBean bean : beans) {
+			list.add(bulidOrderItemEntity(bean));
+		}
+		return list;
 	}
 	
 	public OrderEntity bulidEntity(OrderSearchBean order){
@@ -172,6 +218,12 @@ public class OrderService {
 		}
 		order.setSuccess(true);
 		return order;
+	}
+
+	public OrderBean updatePayStatus(OrderBean bean) {
+		orderPersist.updatePayStatus(bulidEntity(bean));
+		bean.setSuccess(true);
+		return bean;
 	}
 	
 }
