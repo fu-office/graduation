@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.lbyt.client.bean.JsonBean;
 import com.lbyt.client.bean.StockBean;
 import com.lbyt.client.bean.StockOrderBean;
+import com.lbyt.client.bean.StockOrderSearchBean;
 import com.lbyt.client.service.StockService;
 
 @Controller
@@ -25,12 +26,20 @@ public class StockController {
 	}
 	
 	@RequestMapping(value="/findByProdName.json")
+	@ResponseBody
 	public JsonBean findByProdName(@RequestBody StockBean bean){
 		return service.findByProdName(bean);
 	}
 	
 	@RequestMapping(value="/saveStockOrder.json")
+	@ResponseBody
 	public JsonBean saveStockOrderBean(@RequestBody StockOrderBean bean){
 		return service.saveStockOrder(bean);
+	}
+	
+	@RequestMapping(value="/searchStockOrder.json")
+	@ResponseBody
+	public JsonBean searchStockOrder(@RequestBody StockOrderSearchBean bean){
+		return service.searchStockOrders(bean);
 	}
 }

@@ -11,7 +11,7 @@
 		<div class="content">
 			<ul class="tab">
 				<li data-module="search" class="tab-active">库存查询</li>
-				<li data-module="inout" class="">出入库</li>
+				<li data-module="inout" class="">出入库单</li>
 			</ul>
 			<div>
 				<div class="tab-cons hide" id="search">
@@ -33,13 +33,14 @@
 						<div>
 							<label class="fm-lb">类型</label>
 							<select name="stockType" class="ht-select">
-								<option value="0">出库</option>
-								<option value="1">入库</option>
+								<option value="">所有</option>
+								<option value="1">出库</option>
+								<option value="0">入库</option>
 							</select>							
 						</div>
 						<div>
 							<label class="fm-lb">登记日期：</label>
-							<input type="text" class="date" name="endDate" id="gift_end_date"/>							
+							<input type="text" class="date" name="createDate" id="gift_end_date"/>							
 						</div>
 						<div class="btn-grp">
 							<button class="btn search">
@@ -59,8 +60,8 @@
 				<div>
 					<label class="fm-lb">类型</label>
 					<select name="stockType" class="ht-select">
-						<option value="0">出库</option>
-						<option value="1">入库</option>
+						<option value="1">出库</option>
+						<option value="0">入库</option>
 					</select>	
 				</div>
 				<div>
@@ -71,7 +72,11 @@
 				</div>
 				<div>
 					<label class="fm-lb">数量</label>
-					<input type="text" name="num"/>
+					<input type="text" name="num" class="required"/>
+				</div>
+				<div>
+					<label class="fm-lb">备注</label>
+					<textarea name="remark"></textarea>
 				</div>
 			</div>
 			<div class="bn-grp align-center">

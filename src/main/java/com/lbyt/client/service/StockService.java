@@ -4,11 +4,14 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.lbyt.client.bean.JsonBean;
+import com.lbyt.client.bean.PageBean;
 import com.lbyt.client.bean.StockBean;
 import com.lbyt.client.bean.StockOrderBean;
+import com.lbyt.client.bean.StockOrderSearchBean;
 import com.lbyt.client.entity.StockEntity;
 import com.lbyt.client.entity.StockOrderEntity;
 import com.lbyt.client.enums.StockTypeEnum;
@@ -71,11 +74,11 @@ public class StockService {
 
 	public JsonBean saveStockOrder(StockOrderBean bean) {
 		bean.setCreateDate(new Date());
-		StockEntity stockEntity = stockPersistService.findByProductId(bean.getProdcutId());
+		StockEntity stockEntity = stockPersistService.findByProductId(bean.getProductId());
 		if (null == stockEntity) {
 			// add first
 			stockEntity = new StockEntity();
-			stockEntity.setProductId(bean.getProdcutId());
+			stockEntity.setProductId(bean.getProductId());
 			stockEntity.setProductName(bean.getProductName());
 			stockEntity.setNumber(0);
 			this.stockPersistService.save(stockEntity);
@@ -98,10 +101,12 @@ public class StockService {
 		StockOrderEntity entity = new StockOrderEntity();
 		entity.setCreateDate(bean.getCreateDate() != null ? new java.sql.Date(bean.getCreateDate().getTime()) : null);
 		entity.setId(bean.getId());
+		entity.setProductId(bean.getProductId());
 		entity.setNumber(bean.getNum());
 		entity.setProductName(bean.getProductName());
 		entity.setType(bean.getStockType());
 		entity.setStockId(bean.getStockId());
+		entity.setRemark(bean.getRemark());
 		return entity;
 	}
 	
@@ -111,9 +116,25 @@ public class StockService {
 		bean.setId(entity.getId());
 		bean.setNum(entity.getNumber());
 		bean.setStockId(entity.getStockId());
-		bean.setProdcutId(entity.getProductId());
+		bean.setProductId(entity.getProductId());
 		bean.setProductName(entity.getProductName());
 		bean.setStockType(entity.getType());
+		bean.setRemark(entity.getRemark());
+		return bean;
+	}
+
+	public JsonBean searchStockOrders(StockOrderSearchBean bean) {
+		PageBean page = new PageBean();
+		page.setPageNumber(bean.getPageNumber());
+		page.setPageSize(bean.getPageSize());
+		StockOrderEntity entity = new StockOrderEntity();
+		entity.setCreateDate(bean.getCreateDate() != null ? new java.sql.Date (bean.getCreateDate().getTime()) : null);
+		entity.setType(bean.getStockType());
+		Page<StockOrderEntity> result = stockOrderPersistService.search(entity, page);
+		for (StockOrderEntity enti : result.getContent()) {
+			bean.getList().add(bulidStockOrderBean(enti));
+		}
+		bean.setSuccess(true);
 		return bean;
 	}
 	

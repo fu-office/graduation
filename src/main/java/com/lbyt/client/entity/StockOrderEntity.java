@@ -41,6 +41,9 @@ public class StockOrderEntity implements Serializable {
 	
 	@Column(name="stock_id")
 	private Integer stockId;
+	
+	@Column(name="remark")
+	private String remark;
 
 	public Integer getId() {
 		return id;
@@ -96,6 +99,14 @@ public class StockOrderEntity implements Serializable {
 
 	public void setStockId(Integer stockId) {
 		this.stockId = stockId;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 	
 }

@@ -1,10 +1,14 @@
 package com.lbyt.client.bean;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-public class StockOrderBean extends JsonBean {
+public class StockOrderSearchBean extends BaseSearchBean {
 	private static final long serialVersionUID = -6351982586972497937L;
 
+	private List<StockOrderBean> list = new ArrayList<StockOrderBean>();
+	
 	private Integer id;
 	
 	private Integer productId;
@@ -18,16 +22,6 @@ public class StockOrderBean extends JsonBean {
 	private Date createDate;
 	
 	private String stockType;
-	
-	private String remark;
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
 
 	public String getProductName() {
 		return productName;
@@ -83,5 +77,13 @@ public class StockOrderBean extends JsonBean {
 
 	public void setProductId(Integer productId) {
 		this.productId = productId;
+	}
+
+	public List<StockOrderBean> getList() {
+		return list;
+	}
+
+	public void setList(List<StockOrderBean> list) {
+		this.list = list;
 	}
 }

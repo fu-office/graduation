@@ -10,13 +10,14 @@
 		});
 	};
 	var stockType = {
-		0 : '出库单',
-		1 : '入库单'
+		1 : '出库单',
+		0 : '入库单'
 	};
 	var URL = {
 			SEARCH_STOCK : 'stock/findAll.json',
 			SEARCH_STOCK_BY_NAME : 'stock/findByProdName.json',
-			STOCK_ORDER_SAVE : 'stock/save.json'
+			STOCK_ORDER_SAVE : 'stock/saveStockOrder.json',
+			STOCK_ORDER_SEARCH : 'stock/searchStockOrder.json'
 	},Search = {
 			$m : $("#search"),
 			init : function(){
@@ -27,9 +28,9 @@
 					single : true,
 					height : 400,
 					columns : [{title:"编号",field:"id"},
-					           {title:"产品编号",filed:"productId"},
-					           {title:"产品名称",filed:"productName"},
-					           {title:"数量",filed:"number"}]
+					           {title:"产品编号",field:"prodcutId"},
+					           {title:"产品名称",field:"productName"},
+					           {title:"数量",field:"number"}]
 				});
 				$list.find(".ui-tb").css({
 					height : ""
@@ -128,7 +129,7 @@
 					height : 400,
 					single : true,
 					columns : [{title : "编号", field : "id", width : 80},
-					{title : "登记日期", field : "date", formatter : function(ui, data){
+					{title : "登记日期", field : "createDate", formatter : function(ui, data){
 						return $.formatDate(new Date(data.cell), "yyyy-MM-dd");
 					}},
 					{title : "产品编号", field : "productId"},
@@ -136,7 +137,8 @@
 					{title : "类型", field : "stockType", width : 100,formatter: function(ui, data){
 						return stockType[data.cell];
 					}},
-					{title : "数量", field : "num", width : 100}],
+					{title : "数量", field : "num", width : 100},
+					{title : "备注", field : "remark", width : 150}],
 					pagination : true,
 					pager : {
 						select : function(pageNumber, pageSize){
@@ -158,7 +160,7 @@
 					modal : true
 				}).find(".btn").click(function(){
 					var data = $("#gift_add").f2j();
-					data.productName = $("#gift_add").find('select option:selected').text();
+					data.productName = $("#gift_add").find('select[name=productId] option:selected').text();
 					$.ajaxJSON({
 						url : URL.STOCK_ORDER_SAVE,
 						data : data,
@@ -171,19 +173,6 @@
 				$("#gift_add_date").datetimepicker();
 			},
 			exportExcel : function(data){
-				var prefix = "";
-				if (data.startDate && data.endDate) {
-					prefix = data.startDate + "-" + data.endDate; 
-				} else if (data.startDate) {
-					prefix = data.startDate + "-至今";
-				} else if (data.endDate){
-					prefix = "截止" + data.endDate;
-				}
-				$.dlFile({
-					url : URL.GIFT_EXPORT,
-					data : data,
-					fileName : prefix + "赠品.xls"
-				});
 			},
 			_bindEvent : function(){
 				var $m = this.$m,
@@ -277,7 +266,7 @@
 			search : function(data){
 				var $m = this.$m;
 				$.ajaxJSON({
-					url : URL.GIFT_SEARCH,
+					url : URL.STOCK_ORDER_SEARCH,
 					data : data,
 					success : function(d){
 						$m.find(".list").grid("loadData", {

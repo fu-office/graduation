@@ -78,8 +78,9 @@ CREATE TABLE `stock_order` (
   `p_id` int(10) unsigned NOT NULL,
   `p_name` varchar(64) NOT NULL,
   `num` int(8) NOT NULL,
-  `type` int(1) NOT NULL,
+  `type` char(1) NOT NULL,
   `create_date` date,
+  `remark` varchar(200),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
