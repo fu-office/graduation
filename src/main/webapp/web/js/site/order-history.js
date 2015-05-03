@@ -11,13 +11,17 @@
 			1 : '已接单',
 			2 : '配送中',
 			3 : '完成',
+			4 : '取消',
+			5 : '关闭',
+			6 : '删除'
 	};
 	var payStatus = {
-			0 : '<a href="javascript:void(0);" class="pay-link">未支付</a>',
+			0 : '未支付',
 			1 : '已支付'
 	};
 	var url = {
-			GET_ORDER : 'order/getOrderByClient.json'
+			GET_ORDER : 'order/getOrderByClient.json',
+			CANCEL_ORDER : 'order/cancel.json'
 	};
 	Ajax.json({
 		url : url.GET_ORDER,
@@ -36,7 +40,8 @@
 				+ item.phone + '</span></div><div class="content-row"><label>配送时间</label><span>' 
 				+ Date.format(new Date(item.deliveryDate)) + '&nbsp;'+ item.deliveryTime + '</span></div><div class="content-row"><label>支付方式</label><span>'
 				+ method[item.payMethod] + '</span></div><div class="content-row"><label>订单状态</label><span>'
-				+ payStatus[item.payStatus] + '&nbsp;' + status[item.status] + '</span></div></li>';
+				+ payStatus[item.payStatus] + '&nbsp;' + status[item.status] + '</span></div><div class="content-row"><label>金额</label><span>￥' 
+				+ item.total + '</span></div><div class="ctrl-row">' + (0 == item.payStatus && item.status == 0 ? '<a href="javascript:/*fzl*/" class="pay-link">支付</a> <a href="javascript:/*fzl*/" class="cancel-link">取消</a>' : '') + '</div></div></li>';
 			}
 			$ul.html(html);
 		},
@@ -48,4 +53,20 @@
 		var index = $(this).closest('li').attr('data-index');
 		location.href = './order-pay.html?token=' + app.getURLParams().token + '&orderId=' + orderList[index].id;
 	});
+	$('#orderList').on('click', '.cancel-link', function(){
+		var index = $(this).closest('li').attr('data-index'),
+			order = orderList[index];
+		order.status = 4;
+		Ajax.json({
+			url : url.CANCEL_ORDER,
+			data : order,
+			success : function(){
+				location.reload();
+			}
+		});
+		return false;
+	});
+	$('#new-orders').click(function(){
+		location.href = "./main.html?token=" + app.getURLParams().token;
+	})
 }());

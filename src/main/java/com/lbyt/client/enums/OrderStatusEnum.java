@@ -25,4 +25,8 @@ public enum OrderStatusEnum {
 		return String.valueOf(this.status);
 	}
 	
+	public static boolean isOneOfThem(String status){
+		return OrderStatusEnum.UNORDER.toString().equals(status) || OrderStatusEnum.ORDERED.toString().equals(status) || OrderStatusEnum.DELIVERED.toString().equals(status) || OrderStatusEnum.COMPLETE.toString().equals(status) || OrderStatusEnum.CANCEL.toString().equals(status) || OrderStatusEnum.CLOSED.toString().equals(status);
+	}
+	
 }

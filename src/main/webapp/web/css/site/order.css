@@ -2,9 +2,9 @@
 	margin-bottom: 10px;
 }
 .order-box{
-	border: 1px solid #ccc;
 	border-radius: 3px;
 	padding: 10px;
+	background: rgba(200,200,200,.7);
 }
 .order-box .title{
 	margin-bottom: 15px;
@@ -53,4 +53,7 @@
 }
 .deliver-box select{
 	width: 100%;
+}
+input,select{
+	background: rgba(255,255,255,.5);
 }

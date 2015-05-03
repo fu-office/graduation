@@ -69,6 +69,9 @@ public class OrderEntity implements Serializable {
 	@Column(name="total")
 	private Float total;
 	
+	@Column(name="delivery")
+	private Integer deliveryId;
+	
 	@OneToMany(cascade={CascadeType.ALL,CascadeType.REMOVE},fetch=FetchType.EAGER)
 	@JoinColumn(name="order_id")
 	private List<OrderItemEntity> items;
@@ -191,6 +194,14 @@ public class OrderEntity implements Serializable {
 
 	public void setTotal(Float total) {
 		this.total = total;
+	}
+
+	public Integer getDeliveryId() {
+		return deliveryId;
+	}
+
+	public void setDeliveryId(Integer deliveryId) {
+		this.deliveryId = deliveryId;
 	}
 	
 }

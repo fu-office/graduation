@@ -4,6 +4,8 @@
 #
 # Structure for table "client_addr"
 #
+DROP DATABASE IF EXISTS water;
+create database water DEFAULT CHARSET=utf8;
 use water;
 DROP TABLE IF EXISTS `client_addr`;
 CREATE TABLE `client_addr` (
@@ -84,6 +86,24 @@ CREATE TABLE `stock_order` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+#
+# Structure for table "locked_stock"
+#
+
+DROP TABLE IF EXISTS `locked_stock`;
+CREATE TABLE `locked_stock` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `order_id` int(10) unsigned NOT NULL,
+  `p_id` int(10) unsigned NOT NULL,
+  `p_name` varchar(64) NOT NULL,
+  `num` int(8) NOT NULL,
+  `status` char(1) NOT NULL,
+  `create_date` date,
+  `remark` varchar(200),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '下单时被锁定的商品，不属于库存，等待回收或者确认出库';
+
 #
 # Structure for table "water_area"
 #
@@ -135,11 +155,24 @@ CREATE TABLE `water_order` (
   `department` varchar(30) DEFAULT '',
   `area` varchar(30) DEFAULT '',
   `total` float(10,2) DEFAULT 0,
+  `delivery` int(11) COMMENT '配送员编号',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
-# Structure for table "water_order"
+# Structure for table "delivery_members"
+#
+
+DROP TABLE IF EXISTS `delivery_members`;
+CREATE TABLE `delivery_members` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(30),
+  `sex` char(1) DEFAULT 'm',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
+# Structure for table "water_order_items"
 #
 DROP TABLE IF EXISTS `water_order_items`;
 CREATE TABLE `water_order_items` (

@@ -44,6 +44,8 @@ public class OrderBean extends  JsonBean  {
 	
 	private Float total;
 	
+	private Integer deliveryId;
+	
 	private List<OrderItemBean> items = new ArrayList<OrderItemBean>();
 
 	public Integer getId() {
@@ -180,6 +182,14 @@ public class OrderBean extends  JsonBean  {
 
 	public void setTotal(Float total) {
 		this.total = total;
+	}
+
+	public Integer getDeliveryId() {
+		return deliveryId;
+	}
+
+	public void setDeliveryId(Integer deliveryId) {
+		this.deliveryId = deliveryId;
 	}
 	
 }

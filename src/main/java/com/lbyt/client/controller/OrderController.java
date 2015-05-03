@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lbyt.client.bean.ClientBean;
+import com.lbyt.client.bean.JsonBean;
 import com.lbyt.client.bean.OrderBean;
 import com.lbyt.client.bean.OrderSearchBean;
 import com.lbyt.client.service.OrderService;
@@ -41,6 +42,12 @@ public class OrderController {
 	@ResponseBody
 	public OrderBean delete(@RequestBody OrderBean order) {
 		return orderService.delete(order);
+	}
+	
+	@RequestMapping("/cancel.json")
+	@ResponseBody
+	public JsonBean cancelOrder(@RequestBody OrderBean order){
+		return orderService.cancelOrder(order);
 	}
 	
 	@RequestMapping("/findAll.json")
@@ -83,6 +90,12 @@ public class OrderController {
 	@RequestMapping("/updateOrderStatus.json")
 	@ResponseBody
 	public OrderBean updateOrderStatus(@RequestBody OrderBean bean){
-		return null;
+		return orderService.updateOrderStatus(bean);
+	}
+	
+	@RequestMapping("/orderDelivery.json")
+	@ResponseBody
+	public OrderBean orderDelivery(@RequestBody OrderBean order){
+		return orderService.distributionDelivery(order);
 	}
 }

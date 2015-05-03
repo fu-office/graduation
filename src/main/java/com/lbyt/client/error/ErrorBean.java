@@ -15,6 +15,11 @@ public class ErrorBean extends JsonBean{
 		this.message = message;
 		this.errorCode = code;
 	}
+	
+	public ErrorBean(String message){
+		this.message = message;
+		this.errorCode = "default";
+	}
 
 	public String getErrorCode() {
 		return errorCode;

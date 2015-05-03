@@ -15,9 +15,11 @@ import com.lbyt.client.bean.OrderSearchBean;
 import com.lbyt.client.bean.PageBean;
 import com.lbyt.client.entity.OrderEntity;
 import com.lbyt.client.entity.OrderItemEntity;
+import com.lbyt.client.enums.OrderStatusEnum;
 import com.lbyt.client.error.ErrorBean;
 import com.lbyt.client.persistservice.OrderPersistService;
 import com.lbyt.client.util.CommUtil;
+import com.lbyt.client.util.StringUtil;
 
 @Service
 public class OrderService {
@@ -29,7 +31,7 @@ public class OrderService {
 		List<OrderEntity> entities = orderPersist.findAll();
 		List<OrderBean> list = new ArrayList<OrderBean>();
 		for (OrderEntity entity : entities) {
-			list.add(bulidBean(entity));
+			list.add(buildBean(entity));
 		}
 		return list;
 	}
@@ -52,7 +54,7 @@ public class OrderService {
 	}
 
 	public OrderBean save(OrderBean order) {
-		OrderEntity entity = bulidEntity(order);
+		OrderEntity entity = buildEntity(order);
 		orderPersist.save(entity);
 		order.setSuccess(true);
 		order.setId(entity.getId());
@@ -90,26 +92,26 @@ public class OrderService {
 		pageBean.setPageSize(order.getPageSize());
 		Page<OrderEntity> page =  orderPersist.search(bulidEntity(order), pageBean);
 		for (OrderEntity enti : page.getContent()) {
-			json.getList().add(bulidBean(enti));
+			json.getList().add(buildBean(enti));
 		}
 		json.setSuccess(true);
 		return json;
 	}
 	
 	public OrderBean delete(OrderBean order) {
-		orderPersist.deleteById(bulidEntity(order));
+		orderPersist.deleteById(buildEntity(order));
 		order.setSuccess(true);
 		return order;
 	}
 	
 	public OrderBean findById(OrderBean order) {
-		OrderEntity entity = orderPersist.findById(bulidEntity(order));
-		OrderBean bean = bulidBean(entity);
+		OrderEntity entity = orderPersist.findById(buildEntity(order));
+		OrderBean bean = buildBean(entity);
 		bean.setSuccess(true);
 		return bean;
 	}
 	
-	private OrderEntity bulidEntity (OrderBean order) {
+	private OrderEntity buildEntity (OrderBean order) {
 		OrderEntity entity = new OrderEntity();
 		entity.setDate(order.getDate());
 		entity.setId(order.getId());
@@ -125,10 +127,11 @@ public class OrderService {
 		entity.setArea(order.getArea());
 		entity.setItems(bulidOrderItemEntities(order.getItems()));
 		entity.setTotal(order.getTotal());
+		entity.setDeliveryId(order.getDeliveryId());
 		return entity;
 	}
 	
-	public OrderBean bulidBean(OrderEntity entity) {
+	public OrderBean buildBean(OrderEntity entity) {
 		OrderBean bean = new OrderBean();
 		bean.setDate(entity.getDate());
 		bean.setId(entity.getId());
@@ -144,6 +147,7 @@ public class OrderService {
 		bean.setArea(entity.getAddress());
 		bean.setItems(bulidOrderItemBeans(entity.getItems()));
 		bean.setTotal(entity.getTotal());
+		bean.setDeliveryId(entity.getDeliveryId());
 		return bean;
 	}
 	
@@ -201,7 +205,7 @@ public class OrderService {
 		if (null != order.getClientId()) {
 			List<OrderEntity> list = orderPersist.findByClientId(bulidEntity(order));
 			for (OrderEntity entity : list) {
-				json.getList().add(bulidBean(entity));
+				json.getList().add(buildBean(entity));
 			}
 		}
 		json.setSuccess(true);
@@ -214,16 +218,54 @@ public class OrderService {
 		pageBean.setPageSize(order.getPageSize());
 		Page<OrderEntity> list = orderPersist.searchSchedule(bulidEntity(order), pageBean);
 		for (OrderEntity entity : list.getContent()) {
-			order.getList().add(bulidBean(entity));
+			order.getList().add(buildBean(entity));
 		}
 		order.setSuccess(true);
 		return order;
 	}
 
 	public OrderBean updatePayStatus(OrderBean bean) {
-		orderPersist.updatePayStatus(bulidEntity(bean));
+		orderPersist.updatePayStatus(buildEntity(bean));
 		bean.setSuccess(true);
 		return bean;
 	}
+
+	public JsonBean cancelOrder(OrderBean order) {
+		OrderEntity entity = orderPersist.findById(buildEntity(order));
+		if (null != entity) {
+			entity.setStatus(OrderStatusEnum.CANCEL.toString());
+			orderPersist.save(entity);
+			order.setSuccess(true);
+		} else {
+			order.setSuccess(false);
+			order.getErrors().add(new ErrorBean("订单" + order.getId() + "不存在"));
+		}
+		return order;
+	}
+
+	public OrderBean updateOrderStatus(OrderBean bean) {
+		OrderEntity entity = orderPersist.findById(buildEntity(bean));
+		if (null != entity) {
+			String status = StringUtil.isEmpty(bean.getStatus()) ? entity.getStatus() : bean.getStatus();
+			if (OrderStatusEnum.isOneOfThem(status)) {
+				entity.setStatus(status);
+				orderPersist.save(entity);
+				bean.setSuccess(true);
+			} else {
+				bean.setSuccess(false);
+				bean.getErrors().add(new ErrorBean("订单状态属性不匹配"));
+			}
+		} else {
+			bean.setSuccess(false);
+			bean.getErrors().add(new ErrorBean("订单" + bean.getId() + "不存在"));
+		}
+		return bean;
+	}
+	
+	public OrderBean distributionDelivery(OrderBean order){
+		
+		return order;
+	}
+
 	
 }

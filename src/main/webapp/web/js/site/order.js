@@ -165,7 +165,7 @@
 				html += '<option value="' + list[i] + '">' + list[i] + '</option>';
 			}
 			$('#time_list').html(html);
-		});
+		}).change();
 		$('#prodList').on('change', '.item-num', function(){
 			var total = 0;
 			$('#prodList .order-item').each(function(){

@@ -1,6 +1,8 @@
 body{
 	padding: 10px;
 	position: relative;
+	background: url("./images/bg.jpg") center 0 no-repeat #89D7FE;
+	background-size: 100% auto;
 }
 .resp-body{
 	max-width: 640px;
@@ -8,7 +10,7 @@ body{
 }
 .login-box{
 	padding: 10px;
-	background: #eee;
+	background: rgba(200,200,200,.7);
 }
 .login-head, .order-head{
 	font-size: 1.8em;
@@ -99,6 +101,10 @@ body{
 	text-align: center;
 	font-size: 1.4em;
 	line-height: 1.4em;
+}
+
+.row input{
+	background: rgba(255,255,255,.5);
 }
 
 @keyframes slide-in-up{

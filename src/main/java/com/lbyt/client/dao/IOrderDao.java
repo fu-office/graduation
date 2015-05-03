@@ -33,7 +33,7 @@ public interface IOrderDao extends Repository<OrderEntity, Integer>{
 	OrderEntity findById(Integer id);
 	
 	@Transactional(propagation = Propagation.SUPPORTS)
-	@Query("select a from OrderEntity a where a.clientId = ?1")
+	@Query("select a from OrderEntity a where a.clientId = ?1 order by a.id desc")
 	List<OrderEntity> findByClientId(Integer id);
 	
 	@Transactional(propagation = Propagation.SUPPORTS)

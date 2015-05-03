@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lbyt.client.bean.JsonBean;
 import com.lbyt.client.bean.PageBean;
@@ -72,6 +73,7 @@ public class StockService {
 		return json;
 	}
 
+	@Transactional
 	public JsonBean saveStockOrder(StockOrderBean bean) {
 		bean.setCreateDate(new Date());
 		StockEntity stockEntity = stockPersistService.findByProductId(bean.getProductId());
