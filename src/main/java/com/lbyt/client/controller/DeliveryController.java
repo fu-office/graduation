@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lbyt.client.bean.DeliveryBean;
 import com.lbyt.client.bean.JsonBean;
-import com.lbyt.client.persistservice.DeliveryPersistService;
+import com.lbyt.client.service.DeliveryService;
 
 @Controller
 @RequestMapping("/delivery")
 public class DeliveryController {
 	
 	@Autowired
-	private DeliveryPersistService service;
+	private DeliveryService service;
 	
 	@RequestMapping(value="/add.json")
 	@ResponseBody
