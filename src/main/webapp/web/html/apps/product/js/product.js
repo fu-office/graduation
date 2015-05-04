@@ -84,4 +84,5 @@
 			}
 	};
 	Client.init();
+	Client.search();
 }());

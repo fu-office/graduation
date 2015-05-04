@@ -171,6 +171,14 @@
 					});
 				});
 				$("#gift_add_date").datetimepicker();
+				getProds(function(d){
+					var map = {},
+						data = d.datas;
+					for (var i = 0, len = data.length; i < len; i++) {
+						map[data[i].id] = data[i].productName;
+					}
+					$("#gift_add").find('select[name=productId]').select('data', map);
+				});
 			},
 			exportExcel : function(data){
 			},
@@ -298,4 +306,13 @@
 		});
 		$(".tab").find("li").eq(0).click();
 	})();
+	function getProds(fn){
+		$.ajaxJSON({
+			url : 'product/findAll.json',
+			data : {},
+			success : function(d){
+				fn && fn(d);
+			}
+		});
+	}
 }());

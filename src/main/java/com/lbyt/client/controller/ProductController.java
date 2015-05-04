@@ -11,7 +11,7 @@ import com.lbyt.client.bean.ProductBean;
 import com.lbyt.client.service.ProductService;
 
 @Controller
-@RequestMapping("product")
+@RequestMapping("/product")
 public class ProductController {
 
 	@Autowired

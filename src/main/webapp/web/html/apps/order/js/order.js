@@ -30,10 +30,7 @@
 	var URL = {
 		 ORDER_SEARCH : "order/search.json",
 		 SCHEDULE_ORDER_SEARCH :'order/scheduleOrder.json',
-		 CLIENT_SEARCH : "customer/search.json",
-		 CLIENT_DELETE : "customer/deleteById.json",
-		 CLIENT_SAVE : "customer/save.json",
-		 CLIENT_EXPORT : "customer/export.json",
+		 ORDER_SAVE : "order/saveOrUpdate.json"
 	},OrderQuery = {
 			$m : $("#query"),
 			init : function(){
@@ -72,10 +69,36 @@
 				$list.find(".ui-tb").css({
 					height : ""
 				});
+				$('#order_add_dialog').dialog({
+					width: 610,
+					height: 250,
+					title: '新增订单',
+					autoOpen: false
+				});
+				getProds(function(d){
+					var data = d.datas,
+						m = {};
+					for (var i = 0, len = data.length; i < len; i++) {
+						m[data[i].id] = data[i].productName;
+					}
+					$('#prodList').select('data', m);
+					$('#prodNum, #prodList').change(function(){
+						_self.total();
+					});
+				});
+			},
+			total: function(){
+				var pid = $('#prodList').val(),
+					num = $('#prodNum').val();
+				if (pid && num) {
+					$('#total').text(+num * prodMap[pid].price);
+				} else {
+					$('#total').text(0);
+				}
 			},
 			save : function(data, fn){
 				$.ajaxJSON({
-					url : URL.CLIENT_SAVE,
+					url : URL.ORDER_SAVE,
 					data : data,
 					success : function(d){
 						$.msg("保存成功");
@@ -94,6 +117,9 @@
 					}
 				});
 			},
+			addDialog : function(){
+				$('#order_add_dialog').dialog('open').find('input').val('');
+			},
 			_bindEvent : function(){
 				var $m = this.$m,
 					_self = this,
@@ -107,7 +133,7 @@
 					} else if ($this.is(".export")) {
 						_self.exportExcel($m.f2j());
 					} else if ($this.is(".add")) {
-						_self.editDialog({});
+						_self.addDialog({});
 					}
 				});
 				$grid.on("click", "a", function(){
@@ -119,6 +145,9 @@
 					} else if ($link.is(".delete-link")) {
 						
 					}
+				});
+				$('#order_add_dialog').find('.btn').click(function(){
+					_self.save();
 				});
 			}
 	},
@@ -399,4 +428,19 @@
 	$(".date").datetimepicker({
 		endDate: new Date(now.setDate(2 + now.getDate()))
 	});
+	$('#deliveryDate').datetimepicker('setStartDate', new Date());
+	var prodMap = {};
+	function getProds(fn){
+		$.ajaxJSON({
+			url : 'product/findAll.json',
+			data : {},
+			success : function(d){
+				var list = d.datas;
+				for (var i = 0, len = list.length; i < len; i++) {
+					prodMap[list[i].id] = list[i];
+				}
+				fn && fn(d);
+			}
+		});
+	}
 }());

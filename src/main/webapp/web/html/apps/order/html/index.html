@@ -109,16 +109,58 @@
 		<div id="order_add_dialog" class="hide">
 			<div class="fm-row">
 				<div>
-					<label>学号</label>
-					<div></div>
+					<label class="fm-lb">区域</label>
+					<select class="required ht-select" name="area">
+                          <option value="桃李">桃李区</option>
+                          <option value="成蹊">成蹊区</option>
+                   </select>
 				</div>
 				<div>
-					<label>区域</label>
-					<select></select>
+					<label class="fm-lb">楼号</label>
+					<select class="required ht-select" name="department">
+						<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option>
+					</select>
 				</div>
 				<div>
-					<label></label>
+					<label class="fm-lb">楼层</label>
+					<select class="required ht-select" name="floor"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select>
 				</div>
+				<div>
+					<label class="fm-lb">房间号</label>
+					<input class="required" name="room">
+				</div>
+				<div>
+					<label class="fm-lb">商品</label>
+					<select class="required ht-select" id="prodList" name="productId"></select>
+				</div>
+				<div>
+					<label class="fm-lb">订购数量</label>
+					<input class="required ht-number" id="prodNum" name="num">
+				</div>
+				<div>
+					<label class="fm-lb">总计</label>
+					<div class="fm-text" id="total">0</div>
+				</div>
+				<div>
+					<label class="fm-lb">支付状态</label>
+					<select class="required ht-select" name="payStatus">
+						<option value="0">未支付</option>
+						<option value="1">已支付</option>
+					</select>
+				</div>
+				<div>
+					<label class="fm-lb">配送日期</label>
+					<input class="date" name="deliveryDate" id="deliveryDate">
+				</div>
+				<div>
+					<label class="fm-lb">配送时间</label>
+					<select class="ht-select" name="deliveryTime" id="deliveryTime"></select>
+				</div>
+			</div>
+			<div class="btn-grp">
+				<button class="btn btn-primary">
+					确定
+				</button>
 			</div>
 		</div>
 		<script type="text/javascript" src="../../../../js/lib/jquery/jquery.min.js"></script>
