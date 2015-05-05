@@ -1,8 +1,8 @@
 package com.lbyt.client.bean;
 
 public class SimpleBean extends JsonBean{
-
-	private static final long serialVersionUID = -4338994533152429688L;
+	
+	private static final long serialVersionUID = 5984439422219598661L;
 	
 	private String result;
 

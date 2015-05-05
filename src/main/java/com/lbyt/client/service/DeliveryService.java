@@ -30,6 +30,7 @@ public class DeliveryService {
 		for (DeliveryEntity entity : entities) {
 			bean.getDatas().add(bulidBean(entity));
 		}
+		bean.setSuccess(true);
 		return bean;
 	}
 

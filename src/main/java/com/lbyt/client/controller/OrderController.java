@@ -29,7 +29,7 @@ public class OrderController {
 	@RequestMapping("/saveOrUpdate.json")
 	@ResponseBody
 	public OrderBean saveOrUpdate(@RequestBody OrderBean order) {
-		if (null == order.getId()) {
+		if (null == order.getId() && null == order.getClientId()) {
 			ClientBean client = TokenGenerator.getClientByToken(order.getToken());
 			order.setClientId(client.getId());
 			order.setName(client.getRegistName());

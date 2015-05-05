@@ -147,7 +147,26 @@
 					}
 				});
 				$('#order_add_dialog').find('.btn').click(function(){
-					_self.save();
+					$('#order_add_dialog').find('input').trigger('blur');
+					var len = $('#order_add_dialog').find('.error').length;
+					if (len > 0) {
+						return;
+					}
+					var data = $('#order_add_dialog').f2j();
+					data.name = '系统';
+					data.clientId = '0';
+					data.address = data.area + '区' + data.department + '幢' + data.floor + '楼' + data.room;
+					data.items = [];
+					data.items.push({
+						productId : data.productId,
+						num : data.num
+					});
+					delete data.productId;
+					delete data.num;
+					data.total = $('#total').text();
+					_self.save(data, function(){
+						$('#order_add_dialog').dialog('close');
+					});
 				});
 			}
 	},
@@ -174,7 +193,16 @@
 					}},
 					{title : "联系电话", width: 150, field : "phone"},
 					{title : "操作", field : "opera", width : 100, formatter : function(ui, data){
-						return data.row.status == 0 ? "<a href='javascript:void(0);' class='edit-link'>接单</a>&nbsp;&nbsp;" : "<a href='javascript:void(0);' class='delivery-link'>配送</a>"; 
+						var text, link; 
+						switch(data.row.status){
+						case 0:
+							text = '';
+							link = '';
+						case 1:
+							text = '';
+							link = '';
+						}
+						return "<a href='javascript:void(0);' class='" + link + "'>" + text + "</a>&nbsp;&nbsp;"; 
 					}}],
 					pagination : true,
 					pager : {
@@ -429,6 +457,10 @@
 		endDate: new Date(now.setDate(2 + now.getDate()))
 	});
 	$('#deliveryDate').datetimepicker('setStartDate', new Date());
+	$('#deliveryDate').change(function(){
+		var date = $(this).val();
+		
+	});
 	var prodMap = {};
 	function getProds(fn){
 		$.ajaxJSON({

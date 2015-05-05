@@ -127,7 +127,7 @@
 				</div>
 				<div>
 					<label class="fm-lb">房间号</label>
-					<input class="required" name="room">
+					<input type="text" class="required" name="room">
 				</div>
 				<div>
 					<label class="fm-lb">商品</label>
@@ -135,7 +135,7 @@
 				</div>
 				<div>
 					<label class="fm-lb">订购数量</label>
-					<input class="required ht-number" id="prodNum" name="num">
+					<input type="text" class="required ht-number" id="prodNum" name="num">
 				</div>
 				<div>
 					<label class="fm-lb">总计</label>
@@ -150,11 +150,14 @@
 				</div>
 				<div>
 					<label class="fm-lb">配送日期</label>
-					<input class="date" name="deliveryDate" id="deliveryDate">
+					<input type="text" class="date required" name="deliveryDate" id="deliveryDate">
 				</div>
 				<div>
 					<label class="fm-lb">配送时间</label>
-					<select class="ht-select" name="deliveryTime" id="deliveryTime"></select>
+					<select class="ht-select" name="deliveryTime" id="deliveryTime">
+						<option value="09:00-12:00">09:00-12:00</option>
+						<option value="13:00-17:00">13:00-17:00</option>
+					</select>
 				</div>
 			</div>
 			<div class="btn-grp">
