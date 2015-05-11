@@ -113,11 +113,10 @@ public class OrderPersistService {
 			public Predicate toPredicate(Root<OrderEntity> root,
 					CriteriaQuery<?> query, CriteriaBuilder cb) {
 				Path<String> status = root.get("status");
-				Path<Date> deliveryDate = root.get("deliveryDate");
 				Predicate predicate = null;
 				predicate = cb.equal(status, OrderStatusEnum.UNORDER.toString());
 				predicate = cb.or(predicate, cb.equal(status, OrderStatusEnum.ORDERED.toString()));
-				predicate = cb.and(predicate, cb.greaterThanOrEqualTo(deliveryDate, cb.currentDate()));
+				predicate = cb.or(predicate, cb.equal(status, OrderStatusEnum.DELIVERED.toString()));
  				return predicate;
 			}
 			

@@ -30,7 +30,8 @@
 	var URL = {
 		 ORDER_SEARCH : "order/search.json",
 		 SCHEDULE_ORDER_SEARCH :'order/scheduleOrder.json',
-		 ORDER_SAVE : "order/saveOrUpdate.json"
+		 ORDER_SAVE : "order/saveOrUpdate.json",
+		 GET_DELIVERIERS : 'delivery/search.json'
 	},OrderQuery = {
 			$m : $("#query"),
 			init : function(){
@@ -189,18 +190,28 @@
 					}},
 					{title : "订单金额", field : "total",width:100},
 					{title : "支付状态", field : "payStatus",width:100, formatter:function(ui, data){
-						return payMethod[data.row.payMethod] + ' <span class="' + (data.cell == 0 ? 'error' : '') + '">' + payStatus[data.cell] + '</span>';
+						return $('<div>').html(payMethod[data.row.payMethod] + ' <span class="' + (data.cell == 0 ? 'error' : '') + '">' + payStatus[data.cell] + '</span>');
 					}},
 					{title : "联系电话", width: 150, field : "phone"},
-					{title : "操作", field : "opera", width : 100, formatter : function(ui, data){
+					{title : "操作", field : "opera", width : 120, formatter : function(ui, data){
 						var text, link; 
-						switch(data.row.status){
+						switch(+data.row.status){
 						case 0:
-							text = '';
-							link = '';
+							text = '接单';
+							link = 'recive';
+							break;
 						case 1:
-							text = '';
-							link = '';
+							text = '配送';
+							link = 'delivery';
+							break;
+						case 2:
+							text = '配送中, 点击完成';
+							link = 'complete';
+							break;
+						case 3:
+							text = '完成';
+							link = 'completed';
+							break;
 						}
 						return "<a href='javascript:void(0);' class='" + link + "'>" + text + "</a>&nbsp;&nbsp;"; 
 					}}],
@@ -235,10 +246,35 @@
 					});
 				});
 				$("#gift_add_date").datetimepicker();
+				$('#delivery-box').dialog({
+					title : '选择水工',
+					width :  200,
+					height: 135,
+					autoOpen: false
+				});
+			},
+			getAllDelivery: function(fn){
+				$.ajaxJSON({
+					url : URL.GET_DELIVERIERS,
+					data : {},
+					success : function(data){
+						fn && fn(data);
+					}
+				});
 			},
 			_bindEvent : function(){
 				var $m = this.$m,
-					_self = this;
+					_self = this,
+					order = null;
+				$('#delivery-box').find('button').click(function(){
+					if (null != order) {
+						order.deliveryId = $('#delivery-box select').val();
+						order.status = 2;
+						OrderQuery.save(order, function(){
+							$('#delivery-box').dialog('close');
+						});
+					}
+				});
 				$m.on("click", ".btn", function(){
 					var $this = $(this);
 					if ($this.is(".add")) {
@@ -255,21 +291,46 @@
 					var $link = $(this),
 						index = $link.parents("tr[findex]").attr("findex"),
 						row = $m.find(".list").grid("getRow", index);
-					if ($link.is(".delete-link")) {
-						$.msg({
-							type : "confirm",
-							msg : "确定删除",
-							ok : function(){
-								_self.deleteGift({
-									id : row.id
-								}, function(d){
-									$m.find(".list").grid("deleteRow", index);
-									$m.find(".list").grid("reload");
-								});
+					order = row;
+					if ($link.is(".recive")) {
+						if (row.payStatus == 0) {
+							$.msg({
+								type: 'confirm',
+								msg : '该订单未支付，确定接单？',
+								ok : function(){
+									save();	
+								}
+							});
+						} else {
+							save();
+						}
+						function save(){
+							order.status = 1;
+							OrderQuery.save(order, function(){
+								$m.find(".list").grid('updateRow', index);
+							});
+						}
+					} else if ($link.is(".delivery")) {
+						_self.getAllDelivery(function(data){
+							var list = data.datas,
+							result = [];
+							if (list.length) {
+								for (var i = 0, len = list.length; i < len; i++) {
+									result[i] = {
+											text  : list[i].name,
+											value : list[i].id
+									};
+								}
+								$('#delivery-box').dialog('open').find('select').select('data', result);
+							} else {
+								$.msg('当前没有水工');
 							}
 						});
-					} else if ($link.is(".edit-link")) {
-						_self.editGift(row);
+					} else if ($link.is(".complete")) {
+						order.status = 3;
+						OrderQuery.save(order, function(){
+							$m.find(".list").grid('updateRow', index);
+						});
 					}
 				});
 			},

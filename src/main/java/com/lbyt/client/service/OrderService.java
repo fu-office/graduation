@@ -73,6 +73,9 @@ public class OrderService {
 	public OrderBean update(OrderBean order) {
 		OrderBean storeBean = findById(order);
 		if (storeBean != null) {
+			storeBean.setStatus(order.getStatus());
+			storeBean.setPayStatus(order.getPayStatus());
+			storeBean.setDeliveryId(order.getDeliveryId());
 			save(storeBean);
 			storeBean.setSuccess(true);
 			return storeBean;
