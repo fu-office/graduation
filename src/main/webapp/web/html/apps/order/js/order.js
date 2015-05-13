@@ -31,7 +31,8 @@
 		 ORDER_SEARCH : "order/search.json",
 		 SCHEDULE_ORDER_SEARCH :'order/scheduleOrder.json',
 		 ORDER_SAVE : "order/saveOrUpdate.json",
-		 GET_DELIVERIERS : 'delivery/search.json'
+		 GET_DELIVERIERS : 'delivery/search.json',
+		 ORDER_COMPLETE : 'order/orderComplelte.json'
 	},OrderQuery = {
 			$m : $("#query"),
 			init : function(){
@@ -160,6 +161,7 @@
 					data.items = [];
 					data.items.push({
 						productId : data.productId,
+						productName : $('#prodList option:selected').text(),
 						num : data.num
 					});
 					delete data.productId;
@@ -180,7 +182,7 @@
 					height : 400,
 					single : true,
 					columns : [{title : "编号", field : "id", width : 80},
-					{title : "学号", field : "name", width: 80},
+					{title : "学号", field : "name", width: 140},
 					{title : "配送日期", field : "deliveryDate",width:180, formatter : function(ui, data){
 						return data.cell ? $.formatDate(new Date(data.cell), "yyyy-MM-dd") + ' ' + data.row.deliveryTime : "";
 					}},
@@ -272,6 +274,7 @@
 						order.status = 2;
 						OrderQuery.save(order, function(){
 							$('#delivery-box').dialog('close');
+							$m.find('.search').trigger('click');
 						});
 					}
 				});
@@ -328,8 +331,13 @@
 						});
 					} else if ($link.is(".complete")) {
 						order.status = 3;
-						OrderQuery.save(order, function(){
-							$m.find(".list").grid('updateRow', index);
+						$.ajaxJSON({
+							url : URL.ORDER_COMPLETE,
+							data : order,
+							success : function(data){
+								$.ajax('更新成功');
+								$m.find(".list").grid('updateRow', index);
+							}
 						});
 					}
 				});

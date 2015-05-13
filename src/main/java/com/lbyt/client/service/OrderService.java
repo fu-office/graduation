@@ -7,15 +7,19 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lbyt.client.bean.JsonBean;
 import com.lbyt.client.bean.OrderBean;
 import com.lbyt.client.bean.OrderItemBean;
 import com.lbyt.client.bean.OrderSearchBean;
 import com.lbyt.client.bean.PageBean;
+import com.lbyt.client.bean.StockOrderBean;
 import com.lbyt.client.entity.OrderEntity;
 import com.lbyt.client.entity.OrderItemEntity;
 import com.lbyt.client.enums.OrderStatusEnum;
+import com.lbyt.client.enums.StockTypeEnum;
 import com.lbyt.client.error.ErrorBean;
 import com.lbyt.client.persistservice.OrderPersistService;
 import com.lbyt.client.util.CommUtil;
@@ -26,6 +30,9 @@ public class OrderService {
 	
 	@Autowired
 	private OrderPersistService orderPersist;
+	
+	@Autowired
+	private StockService stockService;
 	
 	public List<OrderBean> findAll() {
 		List<OrderEntity> entities = orderPersist.findAll();
@@ -266,8 +273,29 @@ public class OrderService {
 	}
 	
 	public OrderBean distributionDelivery(OrderBean order){
-		
+			
 		return order;
+	}
+
+	@Transactional(propagation = Propagation.SUPPORTS)
+	public OrderBean complete(OrderBean order) {
+		OrderEntity entity = orderPersist.findById(buildEntity(order));
+		entity.setStatus(OrderStatusEnum.COMPLETE.toString());
+		orderPersist.save(entity);
+		List<OrderItemEntity> items = entity.getItems();
+		for (OrderItemEntity item : items) {
+			StockOrderBean stockOrder = new StockOrderBean();
+			stockOrder.setCreateDate(new Date());
+			stockOrder.setNum(item.getNum());
+			stockOrder.setProductId(item.getProdId());
+			stockOrder.setProductName(item.getProdName());
+			stockOrder.setRemark("订单出库:" + order.getId());
+			stockOrder.setStockType(StockTypeEnum.OUTSTOCK.toString());
+			stockService.saveStockOrder(stockOrder);
+		}
+		OrderBean json = buildBean(entity);
+		json.setSuccess(true);
+		return json;
 	}
 
 	

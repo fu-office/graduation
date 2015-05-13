@@ -98,4 +98,10 @@ public class OrderController {
 	public OrderBean orderDelivery(@RequestBody OrderBean order){
 		return orderService.distributionDelivery(order);
 	}
+	
+	@RequestMapping("/orderComplelte.json")
+	@ResponseBody
+	public OrderBean orderComplelte(@RequestBody OrderBean order){
+		return orderService.complete(order);
+	}
 }
