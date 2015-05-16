@@ -173,6 +173,14 @@
 			});
 			$('#total').text(total.toFixed(2));
 		});
+		Ajax.json({
+			url: 'product/findAll.json',
+			data: {},
+			success : function(d){
+				var price = d.datas[0].price;
+				$('.item-price').val(d.datas[0].price).attr('data-value', price);
+			}
+		});
 	}());
 	
 }());

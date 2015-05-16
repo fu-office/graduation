@@ -114,9 +114,13 @@ public class OrderPersistService {
 					CriteriaQuery<?> query, CriteriaBuilder cb) {
 				Path<String> status = root.get("status");
 				Predicate predicate = null;
-				predicate = cb.equal(status, OrderStatusEnum.UNORDER.toString());
-				predicate = cb.or(predicate, cb.equal(status, OrderStatusEnum.ORDERED.toString()));
-				predicate = cb.or(predicate, cb.equal(status, OrderStatusEnum.DELIVERED.toString()));
+				if (StringUtil.isEmpty(entity.getStatus())) {
+					predicate = cb.equal(status, OrderStatusEnum.UNORDER.toString());
+					predicate = cb.or(predicate, cb.equal(status, OrderStatusEnum.ORDERED.toString()));
+					predicate = cb.or(predicate, cb.equal(status, OrderStatusEnum.DELIVERED.toString()));
+				} else {
+					predicate = cb.equal(status, entity.getStatus());
+				}
  				return predicate;
 			}
 			

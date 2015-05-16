@@ -199,8 +199,13 @@
 						var text, link; 
 						switch(+data.row.status){
 						case 0:
-							text = '接单';
-							link = 'recive';
+							if(data.row.payStatus == 0){
+								text = '标记为已支付';
+								link = 'pay';	
+							} else {
+								text = '接单';
+								link = 'recive';
+							}
 							break;
 						case 1:
 							text = '配送';
@@ -298,11 +303,7 @@
 					if ($link.is(".recive")) {
 						if (row.payStatus == 0) {
 							$.msg({
-								type: 'confirm',
-								msg : '该订单未支付，确定接单？',
-								ok : function(){
-									save();	
-								}
+								msg : '该订单未支付！'
 							});
 						} else {
 							save();
@@ -313,6 +314,11 @@
 								$m.find(".list").grid('updateRow', index);
 							});
 						}
+					} else if ($link.is('.pay')) {
+						order.payStatus = 1;
+						OrderQuery.save(order, function(){
+							$m.find(".list").grid('updateRow', index);
+						});
 					} else if ($link.is(".delivery")) {
 						_self.getAllDelivery(function(data){
 							var list = data.datas,
