@@ -341,7 +341,7 @@
 							url : URL.ORDER_COMPLETE,
 							data : order,
 							success : function(data){
-								$.ajax('更新成功');
+								$.msg('更新成功');
 								$m.find(".list").grid('updateRow', index);
 							}
 						});

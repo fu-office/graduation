@@ -154,7 +154,7 @@ public class OrderService {
 		bean.setPayStatus(entity.getPayStatus());
 		bean.setPayMethod(entity.getPayMethod());
 		bean.setName(entity.getName());
-		bean.setArea(entity.getAddress());
+		bean.setArea(entity.getArea());
 		bean.setItems(bulidOrderItemBeans(entity.getItems()));
 		bean.setTotal(entity.getTotal());
 		bean.setDeliveryId(entity.getDeliveryId());
