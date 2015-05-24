@@ -92,6 +92,11 @@ public class OrderPersistService {
 	@Transactional(propagation = Propagation.SUPPORTS)
 	public OrderEntity findById(OrderEntity entity){
 		return orderDao.findById(entity.getId());
+		
+	}
+	@Transactional(propagation = Propagation.SUPPORTS)
+	public long count(){
+		return orderDao.count();
 	}
 	
 	@Transactional(propagation = Propagation.SUPPORTS)

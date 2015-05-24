@@ -23,6 +23,8 @@ public interface IOrderDao extends Repository<OrderEntity, Integer>{
 	
 	List<OrderEntity> findAll(Specification<OrderEntity> specification);
 	
+	long count();
+	
 	@Transactional(propagation = Propagation.REQUIRED)
 	@Modifying
 	@Query("delete from OrderEntity a where a.id = ?1")

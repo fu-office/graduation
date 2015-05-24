@@ -136,6 +136,9 @@ public class StockService {
 		for (StockOrderEntity enti : result.getContent()) {
 			bean.getList().add(bulidStockOrderBean(enti));
 		}
+		bean.setCount(result.getTotalElements());
+		bean.setPageNumber(page.getPageNumber());
+		bean.setPageSize(page.getPageSize());
 		bean.setSuccess(true);
 		return bean;
 	}

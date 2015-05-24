@@ -105,6 +105,9 @@ public class OrderService {
 			json.getList().add(buildBean(enti));
 		}
 		json.setSuccess(true);
+		json.setCount(page.getTotalElements());
+		json.setPageNumber(pageBean.getPageNumber());
+		json.setPageSize(pageBean.getPageSize());
 		return json;
 	}
 	
@@ -230,6 +233,9 @@ public class OrderService {
 		for (OrderEntity entity : list.getContent()) {
 			order.getList().add(buildBean(entity));
 		}
+		order.setCount(list.getTotalElements());
+		order.setPageNumber(pageBean.getPageNumber());
+		order.setPageSize(pageBean.getPageSize());
 		order.setSuccess(true);
 		return order;
 	}

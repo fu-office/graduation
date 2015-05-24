@@ -259,6 +259,7 @@
 					height: 135,
 					autoOpen: false
 				});
+				this.search({});
 			},
 			getAllDelivery: function(fn){
 				$.ajaxJSON({
@@ -300,6 +301,12 @@
 						index = $link.parents("tr[findex]").attr("findex"),
 						row = $m.find(".list").grid("getRow", index);
 					order = row;
+					function save(){
+						order.status = 1;
+						OrderQuery.save(order, function(){
+							$m.find(".list").grid('updateRow', index);
+						});
+					}
 					if ($link.is(".recive")) {
 						if (row.payStatus == 0) {
 							$.msg({
@@ -307,12 +314,6 @@
 							});
 						} else {
 							save();
-						}
-						function save(){
-							order.status = 1;
-							OrderQuery.save(order, function(){
-								$m.find(".list").grid('updateRow', index);
-							});
 						}
 					} else if ($link.is('.pay')) {
 						order.payStatus = 1;
@@ -534,7 +535,6 @@
 	$('#deliveryDate').datetimepicker('setStartDate', new Date());
 	$('#deliveryDate').change(function(){
 		var date = $(this).val();
-		
 	});
 	var prodMap = {};
 	function getProds(fn){
